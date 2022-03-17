@@ -1,0 +1,9 @@
+<div class="header-container">
+    <div [ngClass]='{"nav-menu-hidden" : !showNavbar, "nav-menu": true}'>
+        <a (click)='resetNavbar()' routerLink=''>Home</a>
+        <a (click)='resetNavbar()' routerLink=''> Events</a>
+        <a (click)='resetNavbar()' routerLink='/add-item'> Members</a>
+        <a (click)='resetNavbar()' href='/scan'> Trainings</a>
+        <a (click)='resetNavbar()' routerLink='/contact'> Meetings</a>
+    </div>
+</div>

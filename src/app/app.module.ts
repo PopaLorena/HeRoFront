@@ -1,18 +1,36 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {MatIconModule} from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ViewEventComponent } from './pages/view-event/view-event.component';
+import { HeaderComponent } from './header/header.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { TrainingService } from './services/training.service';
+import { ResponsibilityService } from './services/responsibility.service';
+import { MemberService } from './services/member.service';
+import { MemberTrainingService } from './services/member-training.service';
+import { MemberMeetingService } from './services/member-meeting.service';
+import { MeetingService } from './services/meeting.service';
+import { EventsService } from './services/events.service';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    ViewEventComponent,
+    HeaderComponent
   ],
   imports: [
+    HttpClientModule,
+    MatMenuModule,
+    MatIconModule,
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [TrainingService,ResponsibilityService,MemberService,MemberTrainingService,MemberMeetingService,MeetingService,EventsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

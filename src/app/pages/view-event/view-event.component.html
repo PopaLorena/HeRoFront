@@ -1,0 +1,37 @@
+<div *ngIf="itemIsFound ; else itemIsNotFound" class="mat-typography wholepage">
+    <div class="page">
+        <div class='image1'>
+
+        </div>
+        <div class="info">
+            <h1><b>Item Information:</b></h1>
+            <div class="item">
+                <p>
+                    <b>Name:</b><i> {{ events.Name }}</i>
+                </p>
+                <p>
+                    <b>StartDate:</b><i> {{ events.StartDate | date }}</i>
+                </p>
+                <p>
+                    <b>EndDate:</b><i> {{ events.EndDate | date}}</i>
+                </p>
+            </div>
+        </div>
+
+        <div class='image2'>
+        </div>
+    </div>
+    <div class="buttons">
+        <button mat-raised-button color="accent"  id="EditItem">Edit</button>
+        <button mat-raised-button color="accent"  id="ViewQr">Qr</button>
+    </div>
+</div>
+
+<ng-template #itemIsNotFound>
+    <p class="message">
+        <b> The event is missing.</b>
+    </p>
+    <!-- <img src='../../../assets/box-cute.gif' class='image'> -->
+
+
+</ng-template>

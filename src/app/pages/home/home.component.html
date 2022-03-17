@@ -1,0 +1,32 @@
+<div class="body">
+    <div class="topHalf">
+
+        <div class="leftHalf">
+            <div class="info">
+                <h2>Board of European Students of Technology</h2>
+                <p>Work hard, but don't forget to have fun.</p>
+            </div>
+            <div class="botHalf">
+                <img src='../../../assets/Pika.gif' id='gif' />
+            </div>
+        </div>
+
+        <div class='homeimage'>
+            <div class="card">
+                <h2 class="secondTitle">The next meetings</h2>
+                <div *ngFor="let meeting of meetings"  class="lastItems">
+                    <p>
+                        <b>Name:</b> <i>  {{ meeting.name }}</i>
+                    </p>
+                    <p>
+                        <b>Date:</b> <i>  {{ meeting.date | date}}</i>
+                    </p>
+                    <p>
+                        <b>Facilitator</b><i>  {{ meeting.facilitatorName }}</i>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
