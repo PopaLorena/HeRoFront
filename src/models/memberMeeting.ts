@@ -3,10 +3,10 @@ import { Member } from "./member";
 
 export class MemberMeeting {
     constructor(
-        public Id?: number,
-        public MemberId?: number,
-        public Member?: Member,
-        public MeetingId?: number,
-        public Meeting?: Meeting
+        public id?: number,
+        public memberId?: number,
+        public member?: Member,
+        public meetingId?: number,
+        public meeting?: Meeting
     ) { }
 }

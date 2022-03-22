@@ -2,17 +2,17 @@ import { User } from "./user";
 
 export class Member {
     constructor(
-        public Id?: number,
-        public Name?: string,
-        public BirthDate?: Date,
-        public TelNumber?: string,
-        public Email?: string,
-        public PhotoUrl?: string,
-        public StartDate?: Date,
-        public StatutChangeDate?: Date,
-        public University?: string,
-        public UserId?: number,
-        public User?: User,
-        public Statut?: string
+        public id?: number,
+        public name?: string,
+        public birthDate?: Date,
+        public telNumber?: string,
+        public email?: string,
+        public photoUrl?: string,
+        public startDate?: Date,
+        public statutChangeDate?: Date,
+        public university?: string,
+        public userId?: number,
+        public user?: User,
+        public statut?: string
     ) { }
 }

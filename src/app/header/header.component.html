@@ -1,9 +1,25 @@
 <div class="header-container">
-    <div [ngClass]='{"nav-menu-hidden" : !showNavbar, "nav-menu": true}'>
+    <div class="nav-menu">
         <a (click)='resetNavbar()' routerLink=''>Home</a>
-        <a (click)='resetNavbar()' routerLink=''> Events</a>
-        <a (click)='resetNavbar()' routerLink='/add-item'> Members</a>
-        <a (click)='resetNavbar()' href='/scan'> Trainings</a>
-        <a (click)='resetNavbar()' routerLink='/contact'> Meetings</a>
+        <a (click)='resetNavbar()' routerLink='/Event'> Events</a>
+        <a (click)='resetNavbar()' routerLink='/Members'> Members</a>
+        <a (click)='resetNavbar()' href='/Trainings'> Trainings</a>
+        <a (click)='resetNavbar()' routerLink='/Meetings'> Meetings</a>
+    
     </div>
+    <!-- <button mat-menu-item *ngIf="!userService.loggedIn()" (click)="goToLogin()">
+            Log in
+        </button>
+        <button mat-menu-item *ngIf="userService.loggedIn()"  (click)="userService.removeAuthorization()">log out</button>
+    </mat-menu>
+    <strong *ngIf="userService.loggedIn()">user: {{curentUser}}</strong> -->
+  
+    <div class="user">
+        <img src="img_avatar.png" alt="Avatar">
+    <button mat-button [matMenuTriggerFor]="menu">CURRENTUSERS</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>view</button>
+        <button mat-menu-item (click)="logOut()">log out</button>
+    </mat-menu>
+</div>
 </div>

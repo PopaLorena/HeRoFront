@@ -9,32 +9,19 @@ import { Events } from 'src/models/events';
   styleUrls: ['./view-event.component.scss']
 })
 export class ViewEventComponent implements OnInit {
-  itemIsFound = true;
   eventId!: string;
-  event!: Events;
-  eventIsFound = false;
-  listSize: number = this.eventService.EVENTS_DATA.length;
-  events: Events = this.eventService.EVENTS_DATA[1]; 
-  qrValue!: string;
-  qrsize: number = 200;
+  events?: Events[];
   constructor(private eventService: EventsService, private activatedRoute: ActivatedRoute,
     private router: Router) {
-    // this.activatedRoute.params.subscribe((params) => {
-    //   this.eventId = params.id;
-    //   this.event = new Events();
-    // });
-    // this.qrValue = this.eventId.toString();
-    // if (!this.eventId) {
-    //   this.event = new Events();
-    // } else {
-      // this.eventService.getEventById(this.eventId).subscribe({
+  }
 
-      //   next: event => {
-      //     this.event = new event(event);
-      //     this.eventIsFound = this.event.id === '' ? false : true;
-      //   }
-      // });
-  //   }
+  getEventList(): void {
+    this.eventService.getEvents().subscribe((list: Events[]) => {
+      this.events = list;
+    }, (err) => {
+      if (err.status === 401)
+       return;
+    });
   }
   
   onClickEditEvent(): void {
@@ -43,6 +30,7 @@ export class ViewEventComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getEventList();
   }
 
 }

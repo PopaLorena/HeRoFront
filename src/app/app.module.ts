@@ -14,21 +14,46 @@ import { MemberTrainingService } from './services/member-training.service';
 import { MemberMeetingService } from './services/member-meeting.service';
 import { MeetingService } from './services/meeting.service';
 import { EventsService } from './services/events.service';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
+import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SideInfoComponent } from './side-info/side-info.component';
+import { ViewTrainingsComponent } from './pages/view-trainings/view-trainings.component';
+import { ViewMeetingsComponent } from './pages/view-meetings/view-meetings.component';
+import { ViewMembersComponent } from './pages/view-members/view-members.component';
+import { LoginComponent } from './forms/login/login.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatTableModule} from '@angular/material/table';
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ViewEventComponent,
-    HeaderComponent
+    HeaderComponent,
+    SideInfoComponent,
+    ViewTrainingsComponent,
+    ViewMeetingsComponent,
+    ViewMembersComponent,
+    LoginComponent
   ],
   imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule,
+    MatTableModule,
+    MatCardModule,
+    MatButtonToggleModule,
+    MatButtonModule,
     HttpClientModule,
     MatMenuModule,
     MatIconModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [TrainingService,ResponsibilityService,MemberService,MemberTrainingService,MemberMeetingService,MeetingService,EventsService],
   bootstrap: [AppComponent]

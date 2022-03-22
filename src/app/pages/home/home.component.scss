@@ -32,29 +32,29 @@
     transition: 0.3s;
     border-radius: 70px 50px 50px 70px;
     background-color: aliceblue !important;
-    background: linear-gradient(90deg, var(--body-color), var(--body-color), var(--body-color), var(--table-td-color));
 }
 
-.card {
-    @media (max-width: 1250px) {
-        margin-top: 0%;
-    }
-    @media (max-width: 767px) {
-        display: flex;
-        flex-direction: column;
-    }
-  //  background: linear-gradient(90deg, var(--table-td-color), var(--body-color), var(--body-color), var(--body-color));
-    border-radius: 50px 70px 70px 50px;
-    height: 96%;
-    text-align: center;
-    box-shadow: 2px 4px 15px 2px rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-    margin-right: 40px;
-    margin-top: -15px;
-    margin-bottom: -50px;
-    background-color: rgb(229, 231, 210) !important;
-    background-color: transparent ;
-}
+// .card {
+//     @media (max-width: 1250px) {
+//         margin-top: 0%;
+//     }
+//     @media (max-width: 767px) {
+//         display: flex;
+//         flex-direction: column;
+//     }
+//   //  background: linear-gradient(90deg, var(--table-td-color), var(--body-color), var(--body-color), var(--body-color));
+//     border-radius: 50px 70px 70px 50px;
+//     height: 96%;
+//     text-align: center;
+//     box-shadow: 2px 4px 15px 2px rgba(0, 0, 0, 0.2);
+//     transition: 0.3s;
+//     width: 100px;
+//   //  margin-right: 40px;
+//     margin-top: -15px;
+//     margin-bottom: -50px;
+//     background-color: rgb(229, 231, 210) !important;
+//     background-color: transparent ;
+// }
 
 h1 {
     color: var(--text-color);
@@ -63,18 +63,20 @@ h1 {
 .botHalf {
     margin-top: -10%;
 }
-
+h2 {
+    padding-top: 20px;
+    font-size: xx-large;
+    margin-bottom: 5%;
+}
 .info {
-    h2 {
-        padding-top: 20px;
-        font-size: xx-large;
-        margin-bottom: 5%;
-    }
     padding-left: 1%;
     text-align: center;
-    color:var(--text-color);
     padding-bottom: 13%;
-    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
 }
 
 #gif {
@@ -92,8 +94,6 @@ h1 {
 }
 
 .lastItems {
-    border: 20px;
-    border-color: black;
     display: flex;
     @media (min-width: 768px) {
         flex-direction: row;
@@ -102,12 +102,10 @@ h1 {
         flex-direction: column;
         margin: auto;
     }
-    margin-left: inherit;
     display: inline-block;
     padding: 20px 4%;
-    width:230px;
+    width: 200px;
     border-radius: 15px 50px 30px;
-    color: var(--text-color-dark);
     cursor: pointer;
     background-color: rgb(238, 238, 211) !important;
     background-size: 300%;

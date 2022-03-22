@@ -8,11 +8,11 @@ import { MemberMeeting } from 'src/models/memberMeeting';
 })
 export class MemberMeetingService {
 
-  readonly baseUrl = "http://localhost:80/api/memberMeeting";
+  readonly baseUrl = "http://localhost:44321/api/memberMeeting";
 constructor(private httpClient: HttpClient) { }
 
 getMemberMeetings(): Observable<MemberMeeting[]> {
-  return this.httpClient.get<MemberMeeting[]>(this.baseUrl + `/get`)
+  return this.httpClient.get(this.baseUrl + `/get`) as Observable<MemberMeeting[]>;
 }
 
 }

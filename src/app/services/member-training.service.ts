@@ -8,10 +8,10 @@ import { MemberTraining } from 'src/models/memberTraining';
 })
 export class MemberTrainingService {
 
-  readonly baseUrl = "http://localhost:80/api/MemberTraining";
+  readonly baseUrl = "http://localhost:44321/api/MemberTraining";
 constructor(private httpClient: HttpClient) { }
 
 getMemberTrainings(): Observable<MemberTraining[]> {
-  return this.httpClient.get<MemberTraining[]>(this.baseUrl + `/get`)
+  return this.httpClient.get(this.baseUrl + `/get`) as Observable<MemberTraining[]>;
 }
 }

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-showNavbar = false;
+  showNavbar = false;
   myControl = new FormControl();
   options: string[] = [];
   constructor(
@@ -17,7 +17,7 @@ showNavbar = false;
   }
 
   async ngOnInit(): Promise<void> {
-  
+
   }
 
   changeClient(value: any) {
@@ -29,6 +29,19 @@ showNavbar = false;
   }
   resetNavbar() {
     this.showNavbar = false;
+  }
+
+  isUserAuthenticated() {
+    const token: string | null  = localStorage.getItem("jwt");
+    if (token) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  logOut(){
+    localStorage.removeItem("jwt");
   }
 
 }

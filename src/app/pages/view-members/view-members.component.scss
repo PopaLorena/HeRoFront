@@ -1,0 +1,25 @@
+.items{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.members{
+    margin: 15px;
+    padding: 20px;
+    border: 3px solid #342E37;
+    border-radius: 20%;
+    button{
+        margin: 5px;  
+    }
+}
+
+.buttons{
+    margin-top: 4%;
+    margin-left: 3%;
+    button{
+        margin: 5px;  
+    }
+}

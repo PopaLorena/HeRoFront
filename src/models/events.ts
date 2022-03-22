@@ -1,8 +1,8 @@
 export class Events {
     constructor(
-        public Id?: number,
-        public Name?: string,
-        public StartDate?: Date,
-        public EndDate?: Date,
+        public id?: number,
+        public name?: string,
+        public startDate?: Date,
+        public endDate?: Date,
     ) { }
 }
