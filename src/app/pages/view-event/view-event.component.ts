@@ -10,7 +10,9 @@ import { Events } from 'src/models/events';
 })
 export class ViewEventComponent implements OnInit {
   eventId!: string;
-  events?: Events[];
+  events!: Events[];
+  activeEvents!: Events[];
+  isActiveList = true;
   constructor(private eventService: EventsService, private activatedRoute: ActivatedRoute,
     private router: Router) {
   }
@@ -24,13 +26,45 @@ export class ViewEventComponent implements OnInit {
     });
   }
   
-  onClickEditEvent(): void {
+  getActiveEventsList(): void {
+    this.getEventList();
+    this.activeEvents = [];
 
-    this.router.navigate(['/edit/' + this.eventId]);
+    this.events?.forEach(x => {
+      if (this.isGreaterThanNow(x)) {
+        this.activeEvents.push(x);
+      }
+    })
+  }
+
+  isGreaterThanNow(x: Events): boolean {
+    var newDate = new Date(x.endDate!);
+    if (newDate.getFullYear() < new Date().getFullYear())
+      return false;
+    else if (newDate.getFullYear() == new Date().getFullYear())
+      if (newDate.getMonth() < new Date().getMonth())
+        return false;
+      else if (newDate.getMonth() == new Date().getMonth())
+        if (newDate.getDate() < new Date().getDate())
+          return false;
+        else if (newDate.getDate() == new Date().getDate())
+          if (newDate.getHours() < new Date().getHours())
+            return false;
+
+    return true;
   }
 
   ngOnInit(): void {
-    this.getEventList();
+    if (!this.isActiveList)
+      this.getActiveEventsList();
+    else {
+      this.getEventList();
+    }
+  }
+
+  activeList(): void {
+    this.isActiveList = !this.isActiveList;
+    this.ngOnInit();
   }
 
 }

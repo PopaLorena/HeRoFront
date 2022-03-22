@@ -1,16 +1,16 @@
 
 <div class="buttons">
-    <button mat-raised-button color="accent"  >Add training</button>
+    <button mat-raised-button color="accent"  >Add Member</button>
     <!-- <button mat-raised-button color="accent" *ngIf="!isActiveList" (click)="activeList()" >See future trainings</button> -->
     <!-- <button mat-raised-button color="accent" *ngIf="isActiveList" (click)="activeList()" >See all trainings</button> -->
 </div>
-<div  *ngIf="!isActiveList"  class="items">
+<div   class="items">
     <div *ngFor="let member of members" class="members">
         <p>
             <b>Name:</b> <i> {{ member.name }}</i>
         </p>
         <p>
-            <b>Date:</b> <i> {{ member.user }}</i>
+            <!-- <b>Date:</b> <i> {{ member.user }}</i> -->
         </p>
         <p>
             <b>statut</b><i> {{ member.statut }}</i>
@@ -19,20 +19,5 @@
         <button mat-raised-button color="accent" >Delete</button>
         <button mat-raised-button color="accent" >View</button>
     </div>
-</div>
-<div  *ngIf="isActiveList"  class="items">
-    <div *ngFor="let member of activeMembers" class="members">
-        <p>
-            <b>Name:</b> <i> {{ member.name }}</i>
-        </p>
-        <p>
-            <b>Date:</b> <i> {{ member.user }}</i>
-        </p>
-        <p>
-            <b>Facilitator</b><i> {{ member.statut }}</i>
-        </p>
-        <button mat-raised-button color="accent" >Edit</button>
-        <button mat-raised-button color="accent" >Delete</button>
-        <button mat-raised-button color="accent" >View</button>
-    </div>
+
 </div>

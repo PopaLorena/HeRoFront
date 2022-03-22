@@ -7,7 +7,7 @@ import { Events } from 'src/models/events';
 export class EventsService {
 
   constructor(private httpClient: HttpClient) { }
-  readonly baseUrl = "http://localhost:44321/api/event";
+  readonly baseUrl = "https://localhost:44321/api/event";
 
   getEvents(): Observable<Events[]> {
     return this.httpClient.get(this.baseUrl + `/get`) as Observable<Events[]>;

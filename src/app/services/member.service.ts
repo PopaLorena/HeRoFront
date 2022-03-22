@@ -9,7 +9,7 @@ import { Member } from 'src/models/member';
 export class MemberService {
 
 
-  readonly baseUrl = "http://localhost:44321/api/Member";
+  readonly baseUrl = "https://localhost:44321/api/Member";
   constructor(private httpClient: HttpClient) { }
 
   getMembers(): Observable<Member[]> {

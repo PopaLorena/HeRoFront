@@ -1,25 +1,39 @@
-<div class="mat-typography wholepage">
-    <div class="page">
-        <div class="info">
-            <div class="item">
-                <div *ngFor="let event of events"  class="events">
-                    <p>
-                        <b>Name:</b> <i>  {{ event.name }}</i>
-                    </p>
-                    <p>
-                        <b>Date:</b> <i>  {{ event.startDate | date}}</i>
-                    </p>
-                    <p>
-                        <b>Facilitator</b><i>  {{ event.endDate | date}}</i>
-                    </p>
-                    <button mat-raised-button color="accent"  id="EditItem">Edit</button>
-                    <button mat-raised-button color="accent"  id="EditItem">delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="buttons">
-        <button mat-raised-button color="accent">Add event</button>
+<div class="buttons">
+    <button mat-raised-button color="accent"  >Add event</button>
+    <button mat-raised-button color="accent" *ngIf="!isActiveList" (click)="activeList()" >See future events</button>
+    <button mat-raised-button color="accent" *ngIf="isActiveList" (click)="activeList()" >See all events</button>
+</div>
+<div  *ngIf="!isActiveList"  class="items">
+    <div *ngFor="let event of events" [className]="isGreaterThanNow(event)? 'activeEvents':'events'">
+        <p>
+            <b>Name:</b> <i> {{ event.name }}</i>
+        </p>
+        <p>
+            <b>Start Date:</b> <i> {{ event.startDate | date}}</i>
+        </p>
+        <p>
+            <b>End Date:</b><i> {{ event.endDate | date}}</i>
+        </p>
+        <button mat-raised-button color="accent" >Edit</button>
+        <button mat-raised-button color="accent" >Delete</button>
+        <button mat-raised-button color="accent" >All Pax</button>
+        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(event)" >Apply</button>
     </div>
 </div>
-
+<div  *ngIf="isActiveList"  class="items">
+    <div *ngFor="let event of activeEvents" class="activeEvents">
+        <p>
+            <b>Name:</b> <i> {{ event.name }}</i>
+        </p>
+        <p>
+            <b>Start Date:</b> <i> {{ event.startDate | date}}</i>
+        </p>
+        <p>
+            <b>End Date:</b><i> {{ event.endDate | date}}</i>
+        </p>
+        <button mat-raised-button color="accent" >Edit</button>
+        <button mat-raised-button color="accent" >Delete</button>
+        <button mat-raised-button color="accent" >All resp</button>
+        <button mat-raised-button color="accent" >Apply</button>
+    </div>
+</div>

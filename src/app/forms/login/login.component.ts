@@ -34,16 +34,22 @@ export class LoginComponent implements OnInit {
 
     this.user.role = "Admin";
 
-    console.log(this.user);
-    this.userService.login(this.user).subscribe((response: String) => {
-      const token = (<any>response).token;
-      localStorage.setItem("jwt", token);
-      this.invalidLogin = false;
-      console.log(token);
-      this.router.navigate(['']);
-    }, err => {
-      this.invalidLogin = true;
+    this.userService.login(this.user)
+    .subscribe({
+      next: (response) => {
+        console.log(response)
+        //const token = (<any>response).token;
+        //localStorage.setItem("jwt", token);
+        this.invalidLogin = false;
+        //console.log(token);
+        this.router.navigate(['']);
+      },
+      error: (err) => {
+        console.log(err);
+        this.invalidLogin = true;
+      }
     })
+    console.log( localStorage.getItem("jwt"));
   }
 
   ngOnInit(): void {
