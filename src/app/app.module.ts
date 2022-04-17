@@ -22,12 +22,23 @@ import { SideInfoComponent } from './side-info/side-info.component';
 import { ViewTrainingsComponent } from './pages/view-trainings/view-trainings.component';
 import { ViewMeetingsComponent } from './pages/view-meetings/view-meetings.component';
 import { ViewMembersComponent } from './pages/view-members/view-members.component';
-import { LoginComponent } from './forms/login/login.component';
+import { LoginComponent } from './forms/user/login/login.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './services/user.service';
+import { ViewResponsibilityComponent } from './pages/view-responsibility/view-responsibility.component';
+import { CreateMemberComponent } from './forms/Member/create-member/create-member.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { CreateUserComponent } from './forms/user/create-user/create-user.component';
+import { EditMemberComponent } from './forms/Member/edit-member/edit-member.component';
+import { CreateMeetingComponent } from './forms/meeting/create-meeting/create-meeting.component';
+import { EditMeetingComponent } from './forms/meeting/edit-meeting/edit-meeting.component';
+import { CreateTrainingComponent } from './forms/training/create-training/create-training.component';
+import { EditTrainingComponent } from './forms/training/edit-training/edit-training.component';
 
 @NgModule({
   declarations: [
@@ -39,9 +50,20 @@ import { UserService } from './services/user.service';
     ViewTrainingsComponent,
     ViewMeetingsComponent,
     ViewMembersComponent,
-    LoginComponent
+    LoginComponent,
+    ViewResponsibilityComponent,
+    CreateMemberComponent,
+    CreateUserComponent,
+    EditMemberComponent,
+    CreateMeetingComponent,
+    EditMeetingComponent,
+    CreateTrainingComponent,
+    EditTrainingComponent
   ],
   imports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,

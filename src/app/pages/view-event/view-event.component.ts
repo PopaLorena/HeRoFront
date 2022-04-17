@@ -16,7 +16,9 @@ export class ViewEventComponent implements OnInit {
   constructor(private eventService: EventsService, private activatedRoute: ActivatedRoute,
     private router: Router) {
   }
-
+  goToResp(event: Events): void{
+    this.router.navigate(['responsibilities/', event.id]);
+  }
   getEventList(): void {
     this.eventService.getEvents().subscribe((list: Events[]) => {
       this.events = list;

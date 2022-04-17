@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router,
     private userService: UserService,
     private formBuilder: FormBuilder) {
-    this.user = new User();
+      this.user = new User();
   }
 
   login(){
@@ -37,11 +37,10 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.user)
     .subscribe({
       next: (response) => {
-        console.log(response)
-        //const token = (<any>response).token;
-        //localStorage.setItem("jwt", token);
+        const token = response;
+        localStorage.setItem("jwt", token);
         this.invalidLogin = false;
-        //console.log(token);
+        console.log(token);
         this.router.navigate(['']);
       },
       error: (err) => {
@@ -49,7 +48,7 @@ export class LoginComponent implements OnInit {
         this.invalidLogin = true;
       }
     })
-    console.log( localStorage.getItem("jwt"));
+    console.log( localStorage.getItem('jwt'));
   }
 
   ngOnInit(): void {
@@ -57,7 +56,7 @@ export class LoginComponent implements OnInit {
   }
 
   onBlur(controlName: string){
-    console.log(controlName);
+    //console.log(controlName);
   }
 
   createForm(): void {

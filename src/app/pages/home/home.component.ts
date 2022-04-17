@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
   }
 
   getTrainingList(): void {
-    this.trainingService.getTraining().subscribe((list: Training[]) => {
+    this.trainingService.getTrainings().subscribe((list: Training[]) => {
       this.trainings = list.slice(list.length - 4, list.length);
     }, (err) => {
       if (err.status === 401)

@@ -1,0 +1,28 @@
+<div class="image">
+    <button mat-fab color="primary" (click)="goBackClick()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="form" [formGroup]="form">
+        <mat-form-field appearance="outline">
+            <mat-label>username</mat-label>
+            <input matInput type="text" formControlName="username" placeholder="username" required />
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>password</mat-label>
+            <input matInput type="text" formControlName="password" placeholder="password" required />
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-select formControlName="role">
+                <mat-option *ngFor="let type of role" [value]="type">
+                    {{type}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="saveNewUser()">Save</button>
+    </div>
+</div>

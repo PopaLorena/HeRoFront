@@ -8,10 +8,32 @@ import { Responsibility } from 'src/models/responsibility';
 })
 export class ResponsibilityService {
 
-  readonly baseUrl = "http://localhost:44321/api/Responsibility";
+  token = localStorage.getItem('jwt');
+  header = {Authorization: `Bearer ${this.token}`};
+  readonly baseUrl = "https://localhost:44321/api/Responsibility";
   constructor(private httpClient: HttpClient) { }
 
   getResponsibilities(): Observable<Responsibility[]> {
     return this.httpClient.get(this.baseUrl + `/get`) as Observable<Responsibility[]>;
+  }
+
+  getResponsibilitiesByEventId(eventId: number): Observable<Responsibility[]> {
+    return this.httpClient.get(this.baseUrl + `/get/byEventId/`+eventId, {headers:this.header}) as Observable<Responsibility[]>;
+  }
+
+  getResponsibilityById(resId: number): Observable<Responsibility> {
+    return this.httpClient.get(this.baseUrl + `/get/`+ resId , {headers:this.header}) as Observable<Responsibility>;
+  }
+  
+  addResponsibility(eventId: number, memberId: number, newResponsibility: Responsibility): Observable<Responsibility> {
+    return this.httpClient.post(this.baseUrl + `/post` + eventId + `/` + memberId, newResponsibility, {headers:this.header}) as Observable<Responsibility>;
+  }
+  
+  updateResponsibility(newResponsibility: Responsibility): Observable<Responsibility> {
+    return this.httpClient.patch(this.baseUrl + `/edit/`+newResponsibility.id, newResponsibility, {headers:this.header}) as Observable<Responsibility>;
+  }
+  
+  deleteResponsibility(newResponsibility: Responsibility): void {
+     this.httpClient.delete(this.baseUrl + `/delete/`+ newResponsibility.id);
   }
 }

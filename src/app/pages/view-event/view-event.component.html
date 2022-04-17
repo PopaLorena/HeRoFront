@@ -1,10 +1,10 @@
 <div class="buttons">
-    <button mat-raised-button color="accent"  >Add event</button>
+    <button mat-raised-button color="accent"  routerLink="CreateEvent"  >Add event</button>
     <button mat-raised-button color="accent" *ngIf="!isActiveList" (click)="activeList()" >See future events</button>
     <button mat-raised-button color="accent" *ngIf="isActiveList" (click)="activeList()" >See all events</button>
 </div>
 <div  *ngIf="!isActiveList"  class="items">
-    <div *ngFor="let event of events" [className]="isGreaterThanNow(event)? 'activeEvents':'events'">
+    <div *ngFor="let event of events" class="events">
         <p>
             <b>Name:</b> <i> {{ event.name }}</i>
         </p>
@@ -14,10 +14,10 @@
         <p>
             <b>End Date:</b><i> {{ event.endDate | date}}</i>
         </p>
-        <button mat-raised-button color="accent" >Edit</button>
+        <!-- <button mat-raised-button color="accent" >Edit</button> -->
         <button mat-raised-button color="accent" >Delete</button>
-        <button mat-raised-button color="accent" >All Pax</button>
-        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(event)" >Apply</button>
+        <button mat-raised-button color="accent" (click)="goToResp(event)" >All Pax</button>
+        <!-- <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(event)" >Apply</button> -->
     </div>
 </div>
 <div  *ngIf="isActiveList"  class="items">
@@ -31,9 +31,9 @@
         <p>
             <b>End Date:</b><i> {{ event.endDate | date}}</i>
         </p>
-        <button mat-raised-button color="accent" >Edit</button>
+        <button mat-raised-button color="accent"  routerLink="EditEvent/event.id"  >Edit</button>
         <button mat-raised-button color="accent" >Delete</button>
-        <button mat-raised-button color="accent" >All resp</button>
+        <button mat-raised-button color="accent"(click)="goToResp(event)">All resp</button>
         <button mat-raised-button color="accent" >Apply</button>
     </div>
 </div>

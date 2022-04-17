@@ -1,0 +1,37 @@
+<div class="buttons">
+    <button mat-raised-button color="accent"  >Add responsibility</button>
+    <button mat-raised-button color="accent" *ngIf="!isActiveList" (click)="activeList()" >See active responsibilities only</button>
+    <button mat-raised-button color="accent" *ngIf="isActiveList" (click)="activeList()" >See all responsibilities</button>
+</div>
+<div  *ngIf="!isActiveList"  class="items">
+    <div *ngFor="let responsibility of responsibilities" class="responsibilities">
+        <p>
+            <b>Name:</b> <i> {{ responsibility.name }}</i>
+        </p>
+        <p>
+            <b>Date:</b> <i> {{ responsibility.startDate | date}}</i>
+        </p>
+        <!-- <p>
+            <b>Facilitator</b><i> {{ responsibility.event.name }}</i>
+        </p> -->
+        <button mat-raised-button color="accent" >Delete</button>
+        <button mat-raised-button color="accent" >All Pax</button>
+    </div>
+</div>
+<div  *ngIf="isActiveList"  class="items">
+    <div *ngFor="let responsibility of activeResponsibilities" class="activeResponsibilities">
+        <p>
+            <b>Name:</b> <i> {{ responsibility.name }}</i>
+        </p>
+        <p>
+            <b>Date:</b> <i> {{ responsibility.startDate | date}}</i>
+        </p>
+        <!-- <p>
+            <b>Facilitator</b><i> {{ responsibility.event.name }}</i>
+        </p> -->
+        <button mat-raised-button color="accent" >Edit</button>
+        <button mat-raised-button color="accent" >Delete</button>
+        <button mat-raised-button color="accent"  >All Pax</button>
+        <button mat-raised-button color="accent" >Apply</button>
+    </div>
+</div>

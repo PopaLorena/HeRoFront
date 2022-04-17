@@ -1,6 +1,6 @@
 
 <div class="buttons">
-    <button mat-raised-button color="accent"  >Add Member</button>
+    <button mat-raised-button color="accent" routerLink="CreateUser" >Add Member</button>
     <!-- <button mat-raised-button color="accent" *ngIf="!isActiveList" (click)="activeList()" >See future trainings</button> -->
     <!-- <button mat-raised-button color="accent" *ngIf="isActiveList" (click)="activeList()" >See all trainings</button> -->
 </div>
@@ -15,7 +15,7 @@
         <p>
             <b>statut</b><i> {{ member.statut }}</i>
         </p>
-        <button mat-raised-button color="accent" >Edit</button>
+        <button mat-raised-button color="accent" routerLink="EditMember/member.id" >Edit</button>
         <button mat-raised-button color="accent" >Delete</button>
         <button mat-raised-button color="accent" >View</button>
     </div>

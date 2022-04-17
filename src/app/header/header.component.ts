@@ -42,6 +42,7 @@ export class HeaderComponent implements OnInit {
 
   logOut(){
     localStorage.removeItem("jwt");
+    this.router.navigate([`/Login`]);
   }
 
 }

@@ -17,7 +17,7 @@ export class ViewTrainingsComponent implements OnInit {
   }
 
   getTrainingList(): void {
-    this.trainingService.getTraining().subscribe((list: Training[]) => {
+    this.trainingService.getTrainings().subscribe((list: Training[]) => {
       this.trainings = list;
     }, (err) => {
       if (err.status === 401)
@@ -36,6 +36,10 @@ export class ViewTrainingsComponent implements OnInit {
     })
   }
 
+  led(): void {
+    console.log("...")
+    this.trainingService.led(true);
+  }
   isGreaterThanNow(x: Training): boolean {
     var newDate = new Date(x.date!);
     if (newDate.getFullYear() < new Date().getFullYear())

@@ -1,0 +1,53 @@
+<div class="image">
+    <button mat-fab color="primary" (click)="goBackClick()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="form" [formGroup]="form">
+        <mat-form-field appearance="outline">
+            <mat-label>full name</mat-label>
+            <input matInput type="text" formControlName="name" placeholder="Full name" required />
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="text" formControlName="email" placeholder="Email" required />
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Birth date</mat-label>
+            <input matInput [matDatepickerFilter]="myFilter" formControlName="birthDate" placeholder="Birth date"
+                [matDatepicker]="picker" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Photo</mat-label>
+            <input matInput type="text" formControlName="photoUrl" placeholder="Photo" required />
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>University</mat-label>
+            <input matInput type="text" formControlName="university" placeholder="University" required />
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Phone number</mat-label>
+            <input matInput type="text" formControlName="telNumber" placeholder="Phone number" required />
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-select formControlName="statut">
+                <mat-option *ngFor="let type of statut" [value]="type">
+                    {{type}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="saveNewMember()">Save</button>
+    </div>
+</div>
