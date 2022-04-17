@@ -8,7 +8,7 @@ import { Training } from 'src/models/training';
 @Component({
   selector: 'app-edit-training',
   templateUrl: './edit-training.component.html',
-  styleUrls: ['./edit-training.component.scss']
+  styleUrls: ['../../form.scss']
 })
 export class EditTrainingComponent implements OnInit {
 
@@ -16,14 +16,14 @@ export class EditTrainingComponent implements OnInit {
   form!: FormGroup;
   subscriptionList: Subscription[] = [];
   private trainingToEdit: Training | undefined = new Training();
-  
+
 
   constructor(private formBuilder: FormBuilder,
     private trainingService: TrainingService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    ) { }
- 
+  ) { }
+
 
   ngOnInit(): void {
     this.createForm();
@@ -53,7 +53,7 @@ export class EditTrainingComponent implements OnInit {
       this.router.navigate(['Trainings'])
     });
   }
-  
+
   goBackClick(): void {
     this.router.navigate(['Trainings']);
   }
@@ -66,12 +66,17 @@ export class EditTrainingComponent implements OnInit {
     if (!isValid) {
       return;
     }
-      this.updateTraining(newTraining);
+    this.updateTraining(newTraining);
   }
 
   private setEditTraining(id: number): void {
     this.trainingService.getTrainingById(id).subscribe((training: Training) => {
       this.trainingToEdit = training;
+    });
+    this.trainingService.getTrainings().subscribe((list) => {
+      this.form.patchValue(this.trainingToEdit!, {
+        emitEvent: false
+      });
     });
   }
 

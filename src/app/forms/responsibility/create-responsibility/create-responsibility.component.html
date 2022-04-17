@@ -1,0 +1,43 @@
+<div class="image">
+    <button mat-fab color="primary" (click)="goBackClick()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="form" [formGroup]="form">
+        <mat-form-field appearance="outline">
+            <mat-label>name</mat-label>
+            <input matInput type="text" formControlName="name" placeholder="name" required />
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <input matInput type="text" formControlName="description" placeholder="Description" required />
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Start Date</mat-label>
+            <input matInput [matDatepickerFilter]="myFilter" formControlName="startDate" placeholder="Start Date"
+                [matDatepicker]="picker" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>End Date</mat-label>
+            <input matInput [matDatepickerFilter]="myFilter" formControlName="endDate" placeholder="End Date"
+                [matDatepicker]="picker2" required>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-select formControlName="responsibleId" >
+                <mat-option *ngFor="let responsible of members" [value]="responsible.id" >
+                    {{responsible.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="saveNewResponsibility()">Save</button>
+    </div>
+</div>

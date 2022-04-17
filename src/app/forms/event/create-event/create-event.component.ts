@@ -8,10 +8,10 @@ import { Events } from 'src/models/events';
 @Component({
   selector: 'app-create-event',
   templateUrl: './create-event.component.html',
-  styleUrls: ['./create-event.component.scss']
+  styleUrls: ['../../form.scss']
 })
 export class CreateEventComponent implements OnInit {
-
+  
   params!: string;
   form!: FormGroup;
   subscriptionList: Subscription[] = [];
@@ -45,7 +45,7 @@ export class CreateEventComponent implements OnInit {
     goBackClick(): void {
       this.router.navigate(['Events']);
     }
-    saveNewUser(): void {
+    saveNewEvent(): void {
       const isValid = this.form.valid;
       const newUser: Events = {
         ...this.eventToEdit,

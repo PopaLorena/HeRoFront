@@ -42,7 +42,8 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-            <mat-select formControlName="statut">
+            <mat-label>Statut</mat-label>
+            <mat-select formControlName="statut" placeholder="statut">
                 <mat-option *ngFor="let type of statut" [value]="type">
                     {{type}}
                 </mat-option>

@@ -33,11 +33,11 @@ export class TrainingService {
   }
   
   updateTraining(newTraining: Training): Observable<Training> {
-    return this.httpClient.patch(this.baseUrl + `/edit/`+newTraining.id, newTraining, {headers:this.header}) as Observable<Training>;
+    return this.httpClient.patch(this.baseUrl + `/edit/`+ newTraining.id, newTraining, {headers:this.header}) as Observable<Training>;
   }
   
-  deleteTraining(newTraining: Training): void {
-     this.httpClient.delete(this.baseUrl + `/delete/`+ newTraining.id);
+  deleteTraining(id: number): Observable<null> {
+     return this.httpClient.delete(this.baseUrl + `/delete/` + id, { headers: this.header }) as unknown as Observable<null>;
   }
 
 }

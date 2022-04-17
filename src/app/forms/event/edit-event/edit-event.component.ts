@@ -8,7 +8,7 @@ import { Events } from 'src/models/events';
 @Component({
   selector: 'app-edit-event',
   templateUrl: './edit-event.component.html',
-  styleUrls: ['./edit-event.component.scss']
+  styleUrls: ['../../form.scss']
 })
 export class EditEventComponent implements OnInit {
 
@@ -61,7 +61,7 @@ export class EditEventComponent implements OnInit {
   goBackClick(): void {
     this.router.navigate(['Events']);
   }
-  saveNewEvents(): void {
+  saveNewEvent(): void {
     const isValid = this.form.valid;
     const newEvents: Events = {
       ...this.eventToEdit,
@@ -86,5 +86,4 @@ export class EditEventComponent implements OnInit {
       endDate: [null],
     });
   }
-
 }

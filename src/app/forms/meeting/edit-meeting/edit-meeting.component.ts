@@ -8,7 +8,7 @@ import { Meeting } from 'src/models/meeting';
 @Component({
   selector: 'app-edit-meeting',
   templateUrl: './edit-meeting.component.html',
-  styleUrls: ['./edit-meeting.component.scss']
+  styleUrls: ['../../form.scss']
 })
 export class EditMeetingComponent implements OnInit {
 

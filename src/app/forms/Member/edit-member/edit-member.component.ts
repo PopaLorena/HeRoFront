@@ -8,7 +8,7 @@ import { Member } from 'src/models/member';
 @Component({
   selector: 'app-edit-member',
   templateUrl: './edit-member.component.html',
-  styleUrls: ['./edit-member.component.scss']
+  styleUrls: ['../../form.scss']
 })
 export class EditMemberComponent implements OnInit {
 

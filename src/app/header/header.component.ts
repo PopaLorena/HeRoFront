@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  username = localStorage.getItem('username');
   showNavbar = false;
   myControl = new FormControl();
   options: string[] = [];
@@ -42,6 +42,7 @@ export class HeaderComponent implements OnInit {
 
   logOut(){
     localStorage.removeItem("jwt");
+    localStorage.removeItem("username");
     this.router.navigate([`/Login`]);
   }
 

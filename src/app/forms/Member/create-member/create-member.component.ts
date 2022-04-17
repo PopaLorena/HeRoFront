@@ -8,7 +8,7 @@ import { Member } from 'src/models/member';
 @Component({
   selector: 'app-create-member',
   templateUrl: './create-member.component.html',
-  styleUrls: ['./create-member.component.scss']
+  styleUrls: ['../../form.scss']
 })
 export class CreateMemberComponent implements OnInit {
 

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MemberService } from 'src/app/services/member.service';
 import { ResponsibilityService } from 'src/app/services/responsibility.service';
+import { Member } from 'src/models/member';
 import { Responsibility } from 'src/models/responsibility';
 
 @Component({
@@ -15,24 +17,18 @@ export class ViewResponsibilityComponent implements OnInit {
   activeResponsibilities!: Responsibility[];
   isActiveList = true;
   subscriptionList: Subscription[] = [];
-
-  constructor(private responsibilityService: ResponsibilityService, private router: Router, private activatedRoute: ActivatedRoute) {
+  eventId! : number;
+  member!: Member;
+  constructor(private responsibilityService: ResponsibilityService, private memberService: MemberService, private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.subscriptionList.push(
       this.activatedRoute.params.subscribe((param) => {
-  console.log(parseInt(param.eventId, 10));
-        if (parseInt(param.eventId, 10)) {
-          if (!this.isActiveList)
-            this.getResponsibilityList(parseInt(param.eventId, 10));
-          else {
-            this.getActiveResponsibilityList(parseInt(param.eventId, 10));
-          }
-        }
-        console.log(this.responsibilities)
+        this.eventId = param.eventId;
       })
     )
+    this.getResponsibilityList(this.eventId);
   };
 
   getResponsibilityList(eventId: number): void {
@@ -44,39 +40,22 @@ export class ViewResponsibilityComponent implements OnInit {
     });
   }
 
-  getActiveResponsibilityList(eventId: number): void {
-    this.getResponsibilityList(eventId);
-    this.activeResponsibilities = [];
+  add(): void{
+    this.router.navigate(['CreateResponsibility/' + this.eventId])
+  }
 
-    this.responsibilities?.forEach(x => {
-      if (this.isGreaterThanNow(x)) {
-        this.activeResponsibilities.push(x);
+  edit(id : number | undefined): void{
+    this.router.navigate(['EditResponsibility/'+ this.eventId +'/'+id ])
+  }
+
+  delete(id : number | undefined): void{
+    this.responsibilityService.deleteResponsibility(id!).subscribe(
+      () => {
+        window.location.reload();
+      }, (err)=>{
       }
-    })
-  }
-
-  isGreaterThanNow(x: Responsibility): boolean {
-    var newDate = new Date(x.endDate!);
-    if (newDate.getFullYear() < new Date().getFullYear())
-      return false;
-    else if (newDate.getFullYear() == new Date().getFullYear())
-      if (newDate.getMonth() < new Date().getMonth())
-        return false;
-      else if (newDate.getMonth() == new Date().getMonth())
-        if (newDate.getDate() < new Date().getDate())
-          return false;
-        else if (newDate.getDate() == new Date().getDate())
-          if (newDate.getHours() < new Date().getHours())
-            return false;
-
-    return true;
-  }
-
-
-
-  activeList(): void {
-    this.isActiveList = !this.isActiveList;
-    this.ngOnInit();
-  }
+    );
+   }
+ 
 
 }

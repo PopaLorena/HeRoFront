@@ -8,7 +8,7 @@ import { User } from 'src/models/user';
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.scss']
+  styleUrls: ['../../form.scss']
 })
 export class CreateUserComponent implements OnInit {
   role: string[] = ["User"];
@@ -38,7 +38,7 @@ export class CreateUserComponent implements OnInit {
 
   private addUser(newUser: User): void {
     this.userService.addUser(newUser).subscribe((user: User) => {
-      this.router.navigate(['createMember/'+ user.id ])
+      this.router.navigate(['CreateMember/'+ user.id ])
     });
   }
   

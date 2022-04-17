@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MemberService } from 'src/app/services/member.service';
 import { UserService } from 'src/app/services/user.service';
+import { Member } from 'src/models/member';
 import { User } from 'src/models/user';
 
 @Component({
@@ -14,14 +16,17 @@ export class LoginComponent implements OnInit {
   formGroup!: FormGroup;
   invalidLogin!: boolean;
   formSubmitted!: boolean;
+  memberId! : number;
   user: User;
   constructor(private router: Router,
     private userService: UserService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder, 
+    private memberService: MemberService) {
       this.user = new User();
   }
 
   login(){
+
     const isValid = this.formGroup.valid;
     //this.valid.emit(isValid);
     if (!isValid) {
@@ -33,6 +38,18 @@ export class LoginComponent implements OnInit {
     this.user.password = this.formGroup.controls.password.value;
 
     this.user.role = "Admin";
+
+    this.userService.saveUser(this.user.username);
+    
+    this.memberService.getMemberByUsername(this.user.username!).subscribe((m: number) => {
+      this.memberId = m;
+      console.log(m);
+    }, (err) => {
+      if (err.status === 401)
+        return;
+    });;
+
+    this.userService.saveMemberId(this.memberId);
 
     this.userService.login(this.user)
     .subscribe({

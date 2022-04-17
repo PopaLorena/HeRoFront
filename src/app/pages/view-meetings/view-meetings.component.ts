@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MeetingService } from 'src/app/services/meeting.service';
+import { MemberMeetingService } from 'src/app/services/member-meeting.service';
 import { Meeting } from 'src/models/meeting';
+import { Member } from 'src/models/member';
+import { MemberMeeting } from 'src/models/memberMeeting';
 
 @Component({
   selector: 'app-view-meetings',
@@ -11,12 +14,16 @@ import { Meeting } from 'src/models/meeting';
 export class ViewMeetingsComponent implements OnInit {
 
   meetings!: Meeting[];
+  members!: Member[];
   activeMeetings!: Meeting[];
-  isActiveList = true;
-  constructor(private meetingService: MeetingService, private router: Router) {
+  isActiveList = false;
+  exist : boolean = false;
+  memberMeeting: MemberMeeting = new MemberMeeting();
+  memberId = localStorage.getItem('memberId');
+  constructor(private meetingService: MeetingService, private memberMeetingService: MemberMeetingService, private router: Router) {
   }
 
-  getTrainingList(): void {
+  getMeetingList(): void {
     this.meetingService.getMeetings().subscribe((list: Meeting[]) => {
       this.meetings = list;
     }, (err) => {
@@ -25,8 +32,8 @@ export class ViewMeetingsComponent implements OnInit {
     });
   }
 
-  getActiveTrainingList(): void {
-    this.getTrainingList();
+  getActiveMeetingList(): void {
+    this.getMeetingList();
     this.activeMeetings = [];
 
     this.meetings?.forEach(x => {
@@ -34,6 +41,39 @@ export class ViewMeetingsComponent implements OnInit {
         this.activeMeetings.push(x);
       }
     })
+  }
+
+  add(): void {
+    this.router.navigate(['CreateMeeting'])
+  }
+
+  edit(id: number | undefined): void {
+    this.router.navigate(['EditMeeting/' + id])
+  }
+
+  delete(id: number | undefined): void {
+    this.meetingService.deleteMeeting(id!).subscribe(
+      () => {
+        window.location.reload();
+      }, (err)=>{
+      }
+    );
+  }
+
+  apply(id: number | undefined): void {
+    this.memberMeetingService.addMemberMeetings(1002, id!, this.memberMeeting);
+    window.location.reload();
+  }
+
+  isOnTheList(id: number | undefined): boolean {
+    this.memberMeetingService.CheckIfExist(1002, id!).subscribe((exist: boolean) => {
+      this.exist = exist;
+    }, (err) => {
+      if (err.status === 401)
+        return;
+    });
+ console.log(this.exist);
+    return this.exist;
   }
 
   isGreaterThanNow(x: Meeting): boolean {
@@ -55,15 +95,15 @@ export class ViewMeetingsComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.isActiveList)
-      this.getActiveTrainingList();
+      this.getActiveMeetingList();
     else {
-      this.getTrainingList();
+      this.getMeetingList();
     }
   }
 
   activeList(): void {
+    this.getActiveMeetingList();
     this.isActiveList = !this.isActiveList;
-    this.ngOnInit();
   }
 
 }

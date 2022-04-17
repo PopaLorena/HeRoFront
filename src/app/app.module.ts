@@ -39,6 +39,11 @@ import { CreateMeetingComponent } from './forms/meeting/create-meeting/create-me
 import { EditMeetingComponent } from './forms/meeting/edit-meeting/edit-meeting.component';
 import { CreateTrainingComponent } from './forms/training/create-training/create-training.component';
 import { EditTrainingComponent } from './forms/training/edit-training/edit-training.component';
+import { EditEventComponent } from './forms/event/edit-event/edit-event.component';
+import { CreateEventComponent } from './forms/event/create-event/create-event.component';
+import { CreateResponsibilityComponent } from './forms/responsibility/create-responsibility/create-responsibility.component';
+import { EditResponsibilityComponent } from './forms/responsibility/edit-responsibility/edit-responsibility.component';
+import { ViewMemberComponent } from './pages/view-member/view-member.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +63,12 @@ import { EditTrainingComponent } from './forms/training/edit-training/edit-train
     CreateMeetingComponent,
     EditMeetingComponent,
     CreateTrainingComponent,
-    EditTrainingComponent
+    EditTrainingComponent,
+    EditEventComponent,
+    CreateEventComponent,
+    CreateResponsibilityComponent,
+    EditResponsibilityComponent,
+    ViewMemberComponent
   ],
   imports: [
     MatDatepickerModule,

@@ -1,37 +1,26 @@
 <div class="buttons">
-    <button mat-raised-button color="accent"  >Add responsibility</button>
-    <button mat-raised-button color="accent" *ngIf="!isActiveList" (click)="activeList()" >See active responsibilities only</button>
-    <button mat-raised-button color="accent" *ngIf="isActiveList" (click)="activeList()" >See all responsibilities</button>
+    <button mat-raised-button color="accent" (click)="add()" >Add responsibility</button>
+
 </div>
-<div  *ngIf="!isActiveList"  class="items">
-    <div *ngFor="let responsibility of responsibilities" class="responsibilities">
+<div class="items">
+    <div *ngFor="let responsibility of responsibilities" class= "activeResponsibilities">
         <p>
             <b>Name:</b> <i> {{ responsibility.name }}</i>
         </p>
         <p>
-            <b>Date:</b> <i> {{ responsibility.startDate | date}}</i>
-        </p>
-        <!-- <p>
-            <b>Facilitator</b><i> {{ responsibility.event.name }}</i>
-        </p> -->
-        <button mat-raised-button color="accent" >Delete</button>
-        <button mat-raised-button color="accent" >All Pax</button>
-    </div>
-</div>
-<div  *ngIf="isActiveList"  class="items">
-    <div *ngFor="let responsibility of activeResponsibilities" class="activeResponsibilities">
-        <p>
-            <b>Name:</b> <i> {{ responsibility.name }}</i>
+            <b>Start Date:</b> <i> {{ responsibility.startDate | date}}</i>
         </p>
         <p>
-            <b>Date:</b> <i> {{ responsibility.startDate | date}}</i>
+            <b>Description:</b> <i> {{ responsibility.description}}</i>
         </p>
-        <!-- <p>
-            <b>Facilitator</b><i> {{ responsibility.event.name }}</i>
-        </p> -->
-        <button mat-raised-button color="accent" >Edit</button>
-        <button mat-raised-button color="accent" >Delete</button>
-        <button mat-raised-button color="accent"  >All Pax</button>
-        <button mat-raised-button color="accent" >Apply</button>
+        <p>
+            <b>End Date:</b> <i> {{ responsibility.endDate | date}}</i>
+        </p>
+         <p>
+            <b>responsible:</b><i> {{ responsibility.responsible!.name }}</i>
+        </p> 
+        <button mat-raised-button color="accent" (click)="edit(responsibility.id)"  >Edit</button>
+        <button mat-raised-button color="accent" (click)="delete(responsibility.id)">Delete</button>
     </div>
 </div>
+

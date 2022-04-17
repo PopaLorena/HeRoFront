@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
+import { Member } from 'src/models/member';
 import { User } from 'src/models/user';
+import { MemberService } from './member.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +18,10 @@ export class UserService {
   set username(value: string) {
     localStorage.setItem('username', value);
   }
-  //token = localStorage.getItem('jwt');
+
   loggedInUser: BehaviorSubject<string> = new BehaviorSubject(this.username);
   readonly baseUrl = "https://localhost:44321/api/User";
-  //header = {Authorization: `Bearer ${this.token}`};
+ 
   constructor(private httpClient: HttpClient) { }
 
   saveUser(username: string |undefined ) {
@@ -27,13 +29,16 @@ export class UserService {
     this.loggedInUser.next(username!);
   }
 
-  addUser(user: User): Observable<User> {
+  saveMemberId(id: number | undefined){
+    localStorage.setItem('memberId', id?.toString()!);
+    this.loggedInUser.next(id?.toString()!);
+  }
 
+  addUser(user: User): Observable<User> {
      return this.httpClient.post(this.baseUrl + `/register`, user, {headers:this.header}) as Observable<User>;
    }
 
   login(user: User): Observable<string> {
-    this.saveUser(user.username);
     return this.httpClient.post(this.baseUrl + `/login`, user, {responseType: 'text'}) as Observable<string>;
   }
 }

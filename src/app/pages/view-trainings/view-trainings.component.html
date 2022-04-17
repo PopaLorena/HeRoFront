@@ -1,10 +1,10 @@
 <div class="buttons">
-    <button mat-raised-button color="accent"  routerLink="CreateTraining" >Add training</button>
+    <button mat-raised-button color="accent"  (click)="add()" >Add training</button>
     <button mat-raised-button color="accent" *ngIf="!isActiveList" (click)="activeList()" >See future trainings only</button>
     <button mat-raised-button color="accent" *ngIf="isActiveList" (click)="activeList()" >See all trainings</button>
 </div>
 <div  *ngIf="!isActiveList"  class="items">
-    <div *ngFor="let training of trainings" class="trainings">
+    <div *ngFor="let training of trainings" [className]="isGreaterThanNow(training)? 'activeTrainings':'trainings'">
         <p>
             <b>Name:</b> <i> {{ training.name }}</i>
         </p>
@@ -14,8 +14,10 @@
         <p>
             <b>Facilitator</b><i> {{ training.trainerName }}</i>
         </p>
-        <button mat-raised-button color="accent" >Delete</button>
+        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(training)" (click)="edit(training.id)" >Edit</button>
+        <button mat-raised-button color="accent" (click)="delete(training.id)"  >Delete</button>
         <button mat-raised-button color="accent" >All Pax</button>
+        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(training)" >Apply</button>
     </div>
 </div>
 <div  *ngIf="isActiveList"  class="items">
@@ -29,8 +31,8 @@
         <p>
             <b>Facilitator</b><i> {{ training.trainerName }}</i>
         </p>
-        <button mat-raised-button color="accent" routerLink="EditTraining/training.id" >Edit</button>
-        <button mat-raised-button color="accent" >Delete</button>
+        <button mat-raised-button color="accent"  (click)="edit(training.id)" >Edit</button>
+        <button mat-raised-button color="accent"  (click)="delete(training.id)" >Delete</button>
         <button mat-raised-button color="accent" >All Pax</button>
         <button mat-raised-button color="accent" >Apply</button>
     </div>

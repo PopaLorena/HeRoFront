@@ -23,8 +23,8 @@ export class EventsService {
     return this.httpClient.patch(this.baseUrl + `/edit/`+newEvent.id, newEvent, {headers:this.header}) as Observable<Events>;
   }
 
-  deleteEvent(newEvent: Events): void {
-     this.httpClient.delete(this.baseUrl + `/delete/`+ newEvent.id);
+  deleteEvent(id: number): Observable<null>  {
+    return  this.httpClient.delete(this.baseUrl + `/delete/` + id, { headers: this.header }) as unknown as Observable<null> ;
   }
 
   getEventById(eventId: number): Observable<Events> {

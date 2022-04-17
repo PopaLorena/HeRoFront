@@ -12,12 +12,12 @@ export class ViewEventComponent implements OnInit {
   eventId!: string;
   events!: Events[];
   activeEvents!: Events[];
-  isActiveList = true;
+  isActiveList = false;
   constructor(private eventService: EventsService, private activatedRoute: ActivatedRoute,
     private router: Router) {
   }
   goToResp(event: Events): void{
-    this.router.navigate(['responsibilities/', event.id]);
+    this.router.navigate(['Responsibilities/', event.id]);
   }
   getEventList(): void {
     this.eventService.getEvents().subscribe((list: Events[]) => {
@@ -27,7 +27,24 @@ export class ViewEventComponent implements OnInit {
        return;
     });
   }
+
+  add(): void{
+    this.router.navigate(['CreateEvent' ])
+  }
   
+  edit(id : number | undefined): void{
+    this.router.navigate(['EditEvent/'+id ])
+  }
+
+  delete(id : number | undefined): void{
+    this.eventService.deleteEvent(id!).subscribe(
+      () => {
+        window.location.reload();
+      }, (err)=>{
+      }
+    );
+   }
+
   getActiveEventsList(): void {
     this.getEventList();
     this.activeEvents = [];
@@ -65,8 +82,8 @@ export class ViewEventComponent implements OnInit {
   }
 
   activeList(): void {
+    this.getActiveEventsList();
     this.isActiveList = !this.isActiveList;
-    this.ngOnInit();
   }
 
 }

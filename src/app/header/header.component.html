@@ -1,7 +1,7 @@
 <div class="header-container">
     <div class="nav-menu">
         <a (click)='resetNavbar()' routerLink=''>Home</a>
-        <a (click)='resetNavbar()' routerLink='/Event'> Events</a>
+        <a (click)='resetNavbar()' routerLink='/Events'> Events</a>
         <a (click)='resetNavbar()' routerLink='/Members'> Members</a>
         <a (click)='resetNavbar()' href='/Trainings'> Trainings</a>
         <a (click)='resetNavbar()' routerLink='/Meetings'> Meetings</a>
@@ -16,7 +16,7 @@
   
     <div class="user">
         <img src="img_avatar.png" alt="Avatar">
-    <button mat-button [matMenuTriggerFor]="menu">CURRENTUSERS</button>
+    <button mat-button [matMenuTriggerFor]="menu">{{username}}</button>
     <mat-menu #menu="matMenu">
         <button mat-menu-item>view</button>
         <button mat-menu-item (click)="logOut()">log out</button>

@@ -11,7 +11,7 @@ import { Training } from 'src/models/training';
 export class ViewTrainingsComponent implements OnInit {
   trainings!: Training[];
   activeTrainings!: Training[];
-  isActiveList = true;
+  isActiveList = false;
   constructor(private trainingService: TrainingService, private router: Router) {
 
   }
@@ -34,6 +34,23 @@ export class ViewTrainingsComponent implements OnInit {
         this.activeTrainings.push(x);
       }
     })
+  }
+
+  add(): void{
+    this.router.navigate(['CreateTraining' ])
+  }
+
+  edit(id : number | undefined): void{
+    this.router.navigate(['EditTraining/'+id ])
+  }
+
+  delete(id : number | undefined): void{
+   this.trainingService.deleteTraining(id!).subscribe(
+    () => {
+      window.location.reload();
+    }, (err)=>{
+    }
+  );
   }
 
   led(): void {
@@ -66,7 +83,7 @@ export class ViewTrainingsComponent implements OnInit {
   }
 
   activeList(): void {
+    this.getActiveTrainingList();
     this.isActiveList = !this.isActiveList;
-    this.ngOnInit();
   }
 }

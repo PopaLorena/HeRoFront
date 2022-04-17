@@ -27,7 +27,7 @@ updateMeeting(newMeeting: Meeting): Observable<Meeting> {
   return this.httpClient.patch(this.baseUrl + `/edit/`+newMeeting.id, newMeeting, {headers:this.header}) as Observable<Meeting>;
 }
 
-deleteMeeting(newMeeting: Meeting): void {
-   this.httpClient.delete(this.baseUrl + `/delete/`+ newMeeting.id);
+deleteMeeting(id: number): Observable<null>  {
+   return this.httpClient.delete(this.baseUrl + `/delete/` + id, { headers: this.header }) as unknown as Observable<null> ;
 }
 }

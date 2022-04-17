@@ -21,6 +21,10 @@ export class MemberService {
   getMemberById(memberId: number): Observable<Member> {
     return this.httpClient.get(this.baseUrl + `/get/`+ memberId , {headers:this.header}) as Observable<Member>;
   }
+
+  getMemberByUsername(username: string): Observable<number> {
+    return this.httpClient.get(this.baseUrl + `/get/byUsername/`+ username , {headers:this.header}) as Observable<number>;
+  }
   
   addMember(newMember: Member): Observable<Member> {
     return this.httpClient.post(this.baseUrl + `/post`, newMember, {headers:this.header}) as Observable<Member>;
@@ -30,7 +34,7 @@ export class MemberService {
     return this.httpClient.patch(this.baseUrl + `/edit/`+newMember.id, newMember, {headers:this.header}) as Observable<Member>;
   }
 
-  deleteMember(newMember: Member): void {
-     this.httpClient.delete(this.baseUrl + `/delete/`+ newMember.id);
+  deleteMember(id: number): Observable<null>  {
+    return this.httpClient.delete(this.baseUrl + `/delete/` + id, { headers: this.header }) as unknown as Observable<null> ;
   }
 }

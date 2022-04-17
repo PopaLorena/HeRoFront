@@ -1,10 +1,10 @@
 <div class="buttons">
-    <button mat-raised-button color="accent" routerLink="CreateMeeting" >Add meeting</button>
+    <button mat-raised-button color="accent" (click)="add()" >Add meeting</button>
     <button mat-raised-button color="accent" *ngIf="!isActiveList" (click)="activeList()" >See future meetings</button>
     <button mat-raised-button color="accent" *ngIf="isActiveList" (click)="activeList()" >See all meetings</button>
 </div>
 <div  *ngIf="!isActiveList"  class="items">
-    <div *ngFor="let meeting of meetings" class="meetings">
+    <div *ngFor="let meeting of meetings" [className]="isGreaterThanNow(meeting)? 'activeMeetings':'meetings'">
         <p>
             <b>Name:</b> <i> {{ meeting.name }}</i>
         </p>
@@ -14,8 +14,11 @@
         <p>
             <b>Facilitator</b><i> {{ meeting.facilitatorName }}</i>
         </p>
-        <button mat-raised-button color="accent" >Delete</button>
+        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(meeting)" (click)="edit(meeting.id)" >Edit</button>
+        <button mat-raised-button color="accent" (click)="delete(meeting.id)" >Delete</button>
         <button mat-raised-button color="accent" >All Pax</button>
+        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(meeting) " >Apply</button>
+        <!-- && !isOnTheList(meeting.id) -->
     </div>
 </div>
 <div  *ngIf="isActiveList"  class="items">
@@ -29,9 +32,9 @@
         <p>
             <b>Facilitator</b><i> {{ meeting.facilitatorName }}</i>
         </p>
-        <button mat-raised-button color="accent" routerLink="EditMeeting/meeting.id" >Edit</button>
-        <button mat-raised-button color="accent" >Delete</button>
-        <button mat-raised-button color="accent" >All Pax</button>
-        <button mat-raised-button color="accent" >Apply</button>
+        <button mat-raised-button color="accent" (click)="edit(meeting.id)" >Edit</button>
+        <button mat-raised-button color="accent" (click)="delete(meeting.id)" >Delete</button>
+        <button mat-raised-button color="accent" (click)="isOnTheList(meeting.id)">All Pax</button>
+        <button mat-raised-button color="accent"  (click)="apply(meeting.id)">Apply</button>
     </div>
 </div>

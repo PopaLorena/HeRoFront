@@ -12,43 +12,40 @@ import { CreateUserComponent } from './forms/user/create-user/create-user.compon
 import { EditMemberComponent } from './forms/Member/edit-member/edit-member.component';
 import { EditTrainingComponent } from './forms/training/edit-training/edit-training.component';
 import { CreateTrainingComponent } from './forms/training/create-training/create-training.component';
-import { EditEventComponent } from './forms/events/edit-event/edit-event.component';
-import { CreateEventComponent } from './forms/events/create-event/create-event.component';
+import { EditEventComponent } from './forms/event/edit-event/edit-event.component';
+import { CreateEventComponent } from './forms/event/create-event/create-event.component';
 import { EditMeetingComponent } from './forms/meeting/edit-meeting/edit-meeting.component';
 import { CreateMeetingComponent } from './forms/meeting/create-meeting/create-meeting.component';
+import { CreateResponsibilityComponent } from './forms/responsibility/create-responsibility/create-responsibility.component';
+import { EditResponsibilityComponent } from './forms/responsibility/edit-responsibility/edit-responsibility.component';
 
-export function tokenGetter(){
+export function tokenGetter() {
   return localStorage.getItem("jwt");
 }
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'Event', component: ViewEventComponent },
-  { path: 'EditEvent/:eventId', component: EditEventComponent},
-  { path: 'CreateEvent', component: CreateEventComponent},
+  { path: 'Events', component: ViewEventComponent },
+  { path: 'EditEvent/:eventId', component: EditEventComponent },
+  { path: 'CreateEvent', component: CreateEventComponent },
   { path: 'Trainings', component: ViewTrainingsComponent },
-  { path: 'EditTraining/:trainingId', component: EditTrainingComponent},
-  { path: 'CreateTraining', component: CreateTrainingComponent},
+  { path: 'EditTraining/:trainingId', component: EditTrainingComponent },
+  { path: 'CreateTraining', component: CreateTrainingComponent },
   { path: 'Meetings', component: ViewMeetingsComponent },
-  { path: 'EditMeeting/:meetingId', component: EditMeetingComponent},
-  { path: 'CreateMeeting', component: CreateMeetingComponent},
+  { path: 'EditMeeting/:meetingId', component: EditMeetingComponent },
+  { path: 'CreateMeeting', component: CreateMeetingComponent },
   { path: 'Members', component: ViewMembersComponent },
-  { path: 'EditMember/:memberId', component: EditMemberComponent},
-  { path: 'CreateMember/:userId', component: CreateMemberComponent},
+  { path: 'EditMember/:memberId', component: EditMemberComponent },
+  { path: 'CreateMember/:userId', component: CreateMemberComponent },
   { path: 'Login', component: LoginComponent },
-  { path: 'Responsibilities/:eventId', component: ViewResponsibilityComponent},
-  { path: 'CreateUser', component: CreateUserComponent},
+  { path: 'Responsibilities/:eventId', component: ViewResponsibilityComponent },
+  { path: 'CreateResponsibility/:eventId', component: CreateResponsibilityComponent },
+  { path: 'EditResponsibility/:eventId/:respId', component: EditResponsibilityComponent },
+  { path: 'CreateUser', component: CreateUserComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  // JwtModule.forRoot({
-  //   config:{
-  //     tokenGetter: tokenGetter,
-  //     allowedDomains: ["localhost:44321"],
-  //     disallowedRoutes: []
-  //   }
-  // })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

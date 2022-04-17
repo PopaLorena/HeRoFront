@@ -31,30 +31,8 @@
     box-shadow: 2px 4px 15px 2px rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     border-radius: 70px 50px 50px 70px;
-    background-color: aliceblue !important;
+    border: 3px solid #342E37;
 }
-
-// .card {
-//     @media (max-width: 1250px) {
-//         margin-top: 0%;
-//     }
-//     @media (max-width: 767px) {
-//         display: flex;
-//         flex-direction: column;
-//     }
-//   //  background: linear-gradient(90deg, var(--table-td-color), var(--body-color), var(--body-color), var(--body-color));
-//     border-radius: 50px 70px 70px 50px;
-//     height: 96%;
-//     text-align: center;
-//     box-shadow: 2px 4px 15px 2px rgba(0, 0, 0, 0.2);
-//     transition: 0.3s;
-//     width: 100px;
-//   //  margin-right: 40px;
-//     margin-top: -15px;
-//     margin-bottom: -50px;
-//     background-color: rgb(229, 231, 210) !important;
-//     background-color: transparent ;
-// }
 
 h1 {
     color: var(--text-color);

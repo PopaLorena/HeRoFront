@@ -8,7 +8,7 @@ import { TrainingService } from 'src/app/services/training.service';
 @Component({
   selector: 'app-create-training',
   templateUrl: './create-training.component.html',
-  styleUrls: ['./create-training.component.scss']
+  styleUrls: ['../../form.scss']
 })
 export class CreateTrainingComponent implements OnInit {
 

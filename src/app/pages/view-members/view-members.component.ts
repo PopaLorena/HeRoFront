@@ -25,6 +25,23 @@ export class ViewMembersComponent implements OnInit {
     });
   }
 
+  add(): void{
+    this.router.navigate(['CreateUser' ])
+  }
+  
+  edit(id : number | undefined): void{
+    this.router.navigate(['EditMember/'+id ])
+  }
+
+  delete(id : number | undefined): void{
+    this.memberService.deleteMember(id!).subscribe(
+      () => {
+        window.location.reload();
+      }, (err)=>{
+      }
+    );
+   }
+ 
   ngOnInit(): void {
     this.getMemberList();
   }
