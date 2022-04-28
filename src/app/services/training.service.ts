@@ -24,6 +24,10 @@ export class TrainingService {
    return t;
   }
 
+  getFutureTrainings(): Observable<Training[]> {
+    return this.httpClient.get(this.baseUrl + `/getSort`) as Observable<Training[]>;
+  }
+
   getTrainingById(memberId: number): Observable<Training> {
     return this.httpClient.get(this.baseUrl + `/get/`+ memberId , {headers:this.header}) as Observable<Training>;
   }
