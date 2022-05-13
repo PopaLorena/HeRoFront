@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MemberService } from 'src/app/services/member.service';
@@ -18,7 +18,9 @@ export class CreateMemberComponent implements OnInit {
   userId! : number ;
   subscriptionList: Subscription[] = [];
   private memberToEdit: Member | undefined = new Member();
-  
+  file!: File ; // Variable to store file
+  shortLink: string = "";
+  loading: boolean = false; // Flag variable
 
   constructor(private formBuilder: FormBuilder,
     private memberService: MemberService,
@@ -36,7 +38,12 @@ export class CreateMemberComponent implements OnInit {
         }
       })
     )
+
   }
+
+  onChange(event : any) {
+    this.file = event.target.files[0];
+}
 
   ngOnDestroy(): void {
     this.subscriptionList.forEach((sub) => {
@@ -77,7 +84,7 @@ export class CreateMemberComponent implements OnInit {
 
   private createForm(): void {
     this.form = this.formBuilder.group({
-      name: [null],
+      name: [null,[Validators.required, Validators.minLength(2)]],
       email: [null],
       birthDate: [null],
       photoUrl: [null],

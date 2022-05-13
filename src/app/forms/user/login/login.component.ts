@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   formSubmitted!: boolean;
   memberId! : number;
   user: User;
+  errorText?: String;
   constructor(private router: Router,
     private userService: UserService,
     private formBuilder: FormBuilder, 
@@ -37,13 +38,11 @@ export class LoginComponent implements OnInit {
     this.user.username = this.formGroup.controls.username.value;
     this.user.password = this.formGroup.controls.password.value;
 
-    this.user.role = "Admin";
-
     this.userService.saveUser(this.user.username);
     
     this.memberService.getMemberByUsername(this.user.username!).subscribe((m: number) => {
       this.memberId = m;
-      console.log(m);
+      localStorage.setItem("userId", m.toString());
     }, (err) => {
       if (err.status === 401)
         return;
@@ -57,11 +56,11 @@ export class LoginComponent implements OnInit {
         const token = response;
         localStorage.setItem("jwt", token);
         this.invalidLogin = false;
-        console.log(token);
-        this.router.navigate(['']);
+        this.router.navigate(['Home']);
       },
       error: (err) => {
         console.log(err);
+        this.errorText = err.error;
         this.invalidLogin = true;
       }
     })

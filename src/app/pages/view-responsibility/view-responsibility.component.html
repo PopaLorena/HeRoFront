@@ -11,14 +11,12 @@
             <b>Start Date:</b> <i> {{ responsibility.startDate | date}}</i>
         </p>
         <p>
-            <b>Description:</b> <i> {{ responsibility.description}}</i>
-        </p>
-        <p>
             <b>End Date:</b> <i> {{ responsibility.endDate | date}}</i>
         </p>
          <p>
             <b>responsible:</b><i> {{ responsibility.responsible!.name }}</i>
-        </p> 
+        </p>
+        <button mat-raised-button color="accent" (click)="openDialog(responsibility)" >see more</button> 
         <button mat-raised-button color="accent" (click)="edit(responsibility.id)"  >Edit</button>
         <button mat-raised-button color="accent" (click)="delete(responsibility.id)">Delete</button>
     </div>

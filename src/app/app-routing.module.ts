@@ -18,13 +18,15 @@ import { EditMeetingComponent } from './forms/meeting/edit-meeting/edit-meeting.
 import { CreateMeetingComponent } from './forms/meeting/create-meeting/create-meeting.component';
 import { CreateResponsibilityComponent } from './forms/responsibility/create-responsibility/create-responsibility.component';
 import { EditResponsibilityComponent } from './forms/responsibility/edit-responsibility/edit-responsibility.component';
+import { ViewMemberComponent } from './pages/view-member/view-member.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
 }
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: LoginComponent },
+  { path: 'Home', component: HomeComponent },
   { path: 'Events', component: ViewEventComponent },
   { path: 'EditEvent/:eventId', component: EditEventComponent },
   { path: 'CreateEvent', component: CreateEventComponent },
@@ -37,11 +39,11 @@ const routes: Routes = [
   { path: 'Members', component: ViewMembersComponent },
   { path: 'EditMember/:memberId', component: EditMemberComponent },
   { path: 'CreateMember/:userId', component: CreateMemberComponent },
-  { path: 'Login', component: LoginComponent },
   { path: 'Responsibilities/:eventId', component: ViewResponsibilityComponent },
   { path: 'CreateResponsibility/:eventId', component: CreateResponsibilityComponent },
   { path: 'EditResponsibility/:eventId/:respId', component: EditResponsibilityComponent },
   { path: 'CreateUser', component: CreateUserComponent },
+  { path: 'ViewMember/:memberId', component: ViewMemberComponent },
 ];
 
 @NgModule({

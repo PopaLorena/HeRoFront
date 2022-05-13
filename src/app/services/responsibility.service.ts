@@ -21,6 +21,10 @@ export class ResponsibilityService {
     return this.httpClient.get(this.baseUrl + `/get/byEventId/`+eventId, {headers:this.header}) as Observable<Responsibility[]>;
   }
 
+  getResponsibilitiesByMemberId(memberId: number): Observable<Responsibility[]> {
+    return this.httpClient.get(this.baseUrl + `/get/byMemberId/`+memberId, {headers:this.header}) as Observable<Responsibility[]>;
+  }
+
   getResponsibilityById(resId: number): Observable<Responsibility> {
     return this.httpClient.get(this.baseUrl + `/get/`+ resId , {headers:this.header}) as Observable<Responsibility>;
   }

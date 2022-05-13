@@ -3,6 +3,7 @@ export class Meeting {
         public id?: number,
         public name?: string,
         public date?: Date,
-        public facilitatorName?: string
+        public facilitatorName?: string,
+        public hadApply?: boolean
     ) { }
 }

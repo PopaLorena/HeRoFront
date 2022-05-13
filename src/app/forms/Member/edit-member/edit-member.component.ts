@@ -12,7 +12,7 @@ import { Member } from 'src/models/member';
 })
 export class EditMemberComponent implements OnInit {
 
-  statut: string[] = ["Baby","Active", "Alumnus"];
+  statut: string[] = ["Baby","Active","Alumnus"];
   params!: string;
   form!: FormGroup;
   subscriptionList: Subscription[] = [];

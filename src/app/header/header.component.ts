@@ -17,13 +17,7 @@ export class HeaderComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-
   }
-
-  changeClient(value: any) {
-    this.router.navigate([`/inventory/${value.id}`]);
-  }
-
   toggleNavbar() {
     this.showNavbar = !this.showNavbar;
   }
@@ -43,7 +37,7 @@ export class HeaderComponent implements OnInit {
   logOut(){
     localStorage.removeItem("jwt");
     localStorage.removeItem("username");
-    this.router.navigate([`/Login`]);
+    this.router.navigate(['']);
   }
 
 }

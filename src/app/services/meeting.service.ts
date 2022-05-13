@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Meeting } from 'src/models/meeting';
+import { Member } from 'src/models/member';
 
 @Injectable()
 export class MeetingService {
@@ -19,16 +20,27 @@ getFutureMeetings(): Observable<Meeting[]> {
   return this.httpClient.get(this.baseUrl + `/getSort`) as Observable<Meeting[]>;
 }
 
-getMeetingById(memberId: number): Observable<Meeting> {
-  return this.httpClient.get(this.baseUrl + `/get/`+ memberId , {headers:this.header}) as Observable<Meeting>;
+getNextMeeting(): Observable<Meeting> {
+  return this.httpClient.get(this.baseUrl + `/getNext`) as Observable<Meeting>;
 }
 
+getMeetingById(Id: number): Observable<Meeting> {
+  return this.httpClient.get(this.baseUrl + `/get/`+ Id , {headers:this.header}) as Observable<Meeting>;
+}
+
+getMeetingByMemberId(memberId: number): Observable<Meeting[]> {
+  return this.httpClient.get(this.baseUrl + `/getByMemberId/`+ memberId , {headers:this.header}) as Observable<Meeting[]>;
+}
 addMeeting(newMeeting: Meeting): Observable<Meeting> {
   return this.httpClient.post(this.baseUrl + `/post`, newMeeting, {headers:this.header}) as Observable<Meeting>;
 }
 
 updateMeeting(newMeeting: Meeting): Observable<Meeting> {
   return this.httpClient.patch(this.baseUrl + `/edit/`+newMeeting.id, newMeeting, {headers:this.header}) as Observable<Meeting>;
+}
+
+getParticipants(meetingId: number): Observable<Member[]>{
+  return this.httpClient.get(this.baseUrl + `/getParticipants/`+ meetingId , {headers:this.header}) as Observable<Member[]>;
 }
 
 deleteMeeting(id: number): Observable<null>  {

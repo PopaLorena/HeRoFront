@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Member } from 'src/models/member';
 import { Training } from 'src/models/training';
 
 @Injectable({
@@ -28,8 +29,16 @@ export class TrainingService {
     return this.httpClient.get(this.baseUrl + `/getSort`) as Observable<Training[]>;
   }
 
-  getTrainingById(memberId: number): Observable<Training> {
-    return this.httpClient.get(this.baseUrl + `/get/`+ memberId , {headers:this.header}) as Observable<Training>;
+  getTrainingById(Id: number): Observable<Training> {
+    return this.httpClient.get(this.baseUrl + `/get/`+ Id , {headers:this.header}) as Observable<Training>;
+  }
+
+  getTrainingsByMemberId(memberId: number): Observable<Training[]> {
+    return this.httpClient.get(this.baseUrl + `/getByMemberId/`+ memberId , {headers:this.header}) as Observable<Training[]>;
+  }
+
+  getParticipants(trainingId: number): Observable<Member[]>{
+    return this.httpClient.get(this.baseUrl + `/getParticipants/`+ trainingId , {headers:this.header}) as Observable<Member[]>;
   }
   
   addTraining(newTraining: Training): Observable<Training> {

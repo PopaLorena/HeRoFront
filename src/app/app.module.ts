@@ -20,12 +20,12 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SideInfoComponent } from './side-info/side-info.component';
 import { ViewTrainingsComponent } from './pages/view-trainings/view-trainings.component';
-import { ViewMeetingsComponent } from './pages/view-meetings/view-meetings.component';
+import {  ViewMeetingsComponent } from './pages/view-meetings/view-meetings.component';
 import { ViewMembersComponent } from './pages/view-members/view-members.component';
 import { LoginComponent } from './forms/user/login/login.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './services/user.service';
 import { ViewResponsibilityComponent } from './pages/view-responsibility/view-responsibility.component';
@@ -44,9 +44,14 @@ import { CreateEventComponent } from './forms/event/create-event/create-event.co
 import { CreateResponsibilityComponent } from './forms/responsibility/create-responsibility/create-responsibility.component';
 import { EditResponsibilityComponent } from './forms/responsibility/edit-responsibility/edit-responsibility.component';
 import { ViewMemberComponent } from './pages/view-member/view-member.component';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { ViewMeetingParticipantsComponent } from './pages/view-meetings/view-meeting-participants/view-meeting-participants.component';
+import { ViewTrainingParticipantsComponent } from './pages/view-trainings/view-training-participants/view-training-participants.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 @NgModule({
   declarations: [
+    ViewTrainingsComponent,
+    ViewMeetingsComponent,
     AppComponent,
     HomeComponent,
     ViewEventComponent,
@@ -68,9 +73,13 @@ import { ViewMemberComponent } from './pages/view-member/view-member.component';
     CreateEventComponent,
     CreateResponsibilityComponent,
     EditResponsibilityComponent,
-    ViewMemberComponent
+    ViewMemberComponent,
+    ViewMeetingParticipantsComponent,
+    ViewTrainingParticipantsComponent
   ],
   imports: [
+    MatFormFieldModule,
+    MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,

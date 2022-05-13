@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TrainingService } from 'src/app/services/training.service';
+import { Member } from 'src/models/member';
 import { Training } from 'src/models/training';
+import { ViewTrainingParticipantsComponent } from './view-training-participants/view-training-participants.component';
 
 @Component({
   selector: 'app-view-trainings',
@@ -12,7 +15,8 @@ export class ViewTrainingsComponent implements OnInit {
   trainings!: Training[];
   activeTrainings!: Training[];
   isActiveList = false;
-  constructor(private trainingService: TrainingService, private router: Router) {
+  participants: Member[] = [];
+  constructor(public dialog: MatDialog, private trainingService: TrainingService, private router: Router) {
 
   }
 
@@ -24,6 +28,24 @@ export class ViewTrainingsComponent implements OnInit {
         return;
     });
   }
+
+  openDialog(training: Training): void {
+    this.trainingService.getParticipants(training.id!).subscribe((list: Member[]) => {
+      this.participants = list;
+    }, (err) => {
+      if (err.status === 401)
+        return;
+    });
+
+    const dialogRef = this.dialog.open(ViewTrainingParticipantsComponent, {
+      width: '250px',
+      data: { name: training.name, participants: this.participants },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  };
 
   getActiveTrainingList(): void {
     this.getTrainingList();

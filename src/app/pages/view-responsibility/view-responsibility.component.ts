@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MemberService } from 'src/app/services/member.service';
@@ -19,7 +20,7 @@ export class ViewResponsibilityComponent implements OnInit {
   subscriptionList: Subscription[] = [];
   eventId! : number;
   member!: Member;
-  constructor(private responsibilityService: ResponsibilityService, private memberService: MemberService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private responsibilityService: ResponsibilityService, private memberService: MemberService, private router: Router, private activatedRoute: ActivatedRoute, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -30,6 +31,18 @@ export class ViewResponsibilityComponent implements OnInit {
     )
     this.getResponsibilityList(this.eventId);
   };
+
+  openDialog(resp: Responsibility): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '250px',
+      data: {name: resp.name, description: resp.description},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  };
+
 
   getResponsibilityList(eventId: number): void {
     this.responsibilityService.getResponsibilitiesByEventId(eventId).subscribe((list: Responsibility[]) => {
@@ -57,5 +70,18 @@ export class ViewResponsibilityComponent implements OnInit {
     );
    }
  
+}
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'description.html',
+})
+export class DialogOverviewExampleDialog {
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: Responsibility,
+  ) {}
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }

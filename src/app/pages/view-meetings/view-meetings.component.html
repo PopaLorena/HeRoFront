@@ -16,8 +16,8 @@
         </p>
         <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(meeting)" (click)="edit(meeting.id)" >Edit</button>
         <button mat-raised-button color="accent" (click)="delete(meeting.id)" >Delete</button>
-        <button mat-raised-button color="accent" >All Pax</button>
-        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(meeting) " >Apply</button>
+        <button mat-raised-button color="accent" (click)="openDialog(meeting)">All Pax</button>
+        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(meeting) && !meeting.hadApply"  (click)="apply(meeting.id)">Apply</button>
         <!-- && !isOnTheList(meeting.id) -->
     </div>
 </div>
@@ -34,7 +34,7 @@
         </p>
         <button mat-raised-button color="accent" (click)="edit(meeting.id)" >Edit</button>
         <button mat-raised-button color="accent" (click)="delete(meeting.id)" >Delete</button>
-        <button mat-raised-button color="accent" (click)="isOnTheList(meeting.id)">All Pax</button>
-        <button mat-raised-button color="accent"  (click)="apply(meeting.id)">Apply</button>
+        <button mat-raised-button color="accent" (click)="openDialog(meeting)">All Pax</button>
+        <button mat-raised-button color="accent"  *ngIf="!meeting.hadApply"  (click)="apply(meeting.id)">Apply</button>
     </div>
 </div>

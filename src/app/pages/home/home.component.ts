@@ -24,8 +24,8 @@ export class HomeComponent implements OnInit {
   }
 
   getMeetingList(): void {
-    this.meetingService.getMeetings().subscribe((list: Meeting[]) => {
-      this.meetings = list.slice(list.length - 4, list.length);
+    this.meetingService.getFutureMeetings().subscribe((list: Meeting[]) => {
+      this.meetings = list.slice(0,4);
     }, (err) => {
       if (err.status === 401)
        return;
@@ -33,8 +33,8 @@ export class HomeComponent implements OnInit {
   }
 
   getTrainingList(): void {
-    this.trainingService.getTrainings().subscribe((list: Training[]) => {
-      this.trainings = list.slice(list.length - 4, list.length);
+    this.trainingService.getFutureTrainings().subscribe((list: Training[]) => {
+      this.trainings = list.slice(0, 4);
     }, (err) => {
       if (err.status === 401)
        return;
@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.getTrainingList();
      this.getMeetingList();
   }

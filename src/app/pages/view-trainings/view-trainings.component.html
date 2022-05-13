@@ -16,7 +16,7 @@
         </p>
         <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(training)" (click)="edit(training.id)" >Edit</button>
         <button mat-raised-button color="accent" (click)="delete(training.id)"  >Delete</button>
-        <button mat-raised-button color="accent" >All Pax</button>
+        <button mat-raised-button color="accent" (click)="openDialog(training)">All Pax</button>
         <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(training)" >Apply</button>
     </div>
 </div>
@@ -33,7 +33,7 @@
         </p>
         <button mat-raised-button color="accent"  (click)="edit(training.id)" >Edit</button>
         <button mat-raised-button color="accent"  (click)="delete(training.id)" >Delete</button>
-        <button mat-raised-button color="accent" >All Pax</button>
+        <button mat-raised-button color="accent" (click)="openDialog(training)">All Pax</button>
         <button mat-raised-button color="accent" >Apply</button>
     </div>
 </div>

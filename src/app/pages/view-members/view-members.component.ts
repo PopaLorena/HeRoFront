@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MemberService } from 'src/app/services/member.service';
 import { Member } from 'src/models/member';
@@ -46,4 +46,8 @@ export class ViewMembersComponent implements OnInit {
     this.getMemberList();
   }
 
+  goToMember(id : number | undefined): void{
+    this.router.navigate(['ViewMember/' +id ])
+  }
 }
+

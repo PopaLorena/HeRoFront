@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { MeetingService } from 'src/app/services/meeting.service';
 import { MemberMeetingService } from 'src/app/services/member-meeting.service';
 import { Meeting } from 'src/models/meeting';
 import { Member } from 'src/models/member';
 import { MemberMeeting } from 'src/models/memberMeeting';
+import { ViewMeetingParticipantsComponent } from './view-meeting-participants/view-meeting-participants.component';
 
 @Component({
   selector: 'app-view-meetings',
@@ -17,10 +19,11 @@ export class ViewMeetingsComponent implements OnInit {
   members!: Member[];
   activeMeetings!: Meeting[];
   isActiveList = false;
-  exist : boolean = false;
+  exist: boolean = false;
   memberMeeting: MemberMeeting = new MemberMeeting();
-  memberId = localStorage.getItem('memberId');
-  constructor(private meetingService: MeetingService, private memberMeetingService: MemberMeetingService, private router: Router) {
+  memberId = localStorage.getItem('userId');
+  participants: Member[] = [];
+  constructor(private meetingService: MeetingService, private memberMeetingService: MemberMeetingService, private router: Router, public dialog: MatDialog) {
   }
 
   getMeetingList(): void {
@@ -32,6 +35,24 @@ export class ViewMeetingsComponent implements OnInit {
     });
   }
 
+  openDialog(meeting: Meeting): void {
+    this.meetingService.getParticipants(meeting.id!).subscribe((list: Member[]) => {
+      this.participants = list;
+    }, (err) => {
+      if (err.status === 401)
+        return;
+    });
+
+    const dialogRef = this.dialog.open(ViewMeetingParticipantsComponent, {
+      width: '250px',
+      data: { name: meeting.name, participants: this.participants },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  };
+
   getActiveMeetingList(): void {
     this.getMeetingList();
     this.activeMeetings = [];
@@ -39,6 +60,12 @@ export class ViewMeetingsComponent implements OnInit {
     this.meetings?.forEach(x => {
       if (this.isGreaterThanNow(x)) {
         this.activeMeetings.push(x);
+        if(this.isOnTheList(x.id)){
+          x.hadApply = true;
+        }
+        else {
+          x.hadApply = false;
+        }
       }
     })
   }
@@ -55,24 +82,26 @@ export class ViewMeetingsComponent implements OnInit {
     this.meetingService.deleteMeeting(id!).subscribe(
       () => {
         window.location.reload();
-      }, (err)=>{
+      }, (err) => {
       }
     );
   }
 
   apply(id: number | undefined): void {
-    this.memberMeetingService.addMemberMeetings(1002, id!, this.memberMeeting);
-    window.location.reload();
+    this.memberMeetingService.addMemberMeetings(parseInt(this.memberId!), id!).subscribe((m: MemberMeeting) => {
+    },
+    (err) => {
+      console.log(err);
+    });
   }
 
   isOnTheList(id: number | undefined): boolean {
-    this.memberMeetingService.CheckIfExist(1002, id!).subscribe((exist: boolean) => {
-      this.exist = exist;
+    this.memberMeetingService.CheckIfExist(parseInt(this.memberId!), id!).subscribe((exist: boolean) => {
+      return exist;
     }, (err) => {
       if (err.status === 401)
         return;
     });
- console.log(this.exist);
     return this.exist;
   }
 

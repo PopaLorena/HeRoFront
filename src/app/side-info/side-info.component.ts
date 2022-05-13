@@ -13,51 +13,17 @@ import { TrainingService } from '../services/training.service';
 export class SideInfoComponent implements OnInit {
  
   meetings: Meeting[] = [];
-  trainings: Training[] = [];
-  noActivity: boolean = false;
-  activity: number = 0;
-  training!: Training;
   meeting!: Meeting;
+  ora!: any;
+
   constructor(private meetingService: MeetingService, private trainingService: TrainingService) { }
 
-  ngOnInit(): void {
-   this.getMeetingList();
-   this.getTrainingList();
-
-   if(this.meetings.length == 0  && this.trainings.length == 0)
-   {
-     this.noActivity = true;
-   }
-   else {
-     if(this.meetings.length == 0)
-     { 
-      this.activity = 0;
-      this.training = this.trainings[0];
-     }
-     else{
-      this.activity = 1;
-      this.meeting = this.meetings[0];
-     }
-   }
-  }
-
-  getMeetingList(): void {
-    var date = new Date;
-    this.meetingService.getFutureMeetings().subscribe((list: Meeting[]) => {
-      this.meetings = list;
+  async ngOnInit(): Promise<void> {
+    this.meetingService.getNextMeeting().subscribe((meeting: Meeting) => {
+     this.meeting = meeting;
     }, (err) => {
       if (err.status === 401)
        return;
     });
   }
-
-  getTrainingList(): void {
-    this.trainingService.getFutureTrainings().subscribe((list: Training[]) => {
-      this.trainings = list;
-    }, (err) => {
-      if (err.status === 401)
-       return;
-    }); 
-  }
-
 }
