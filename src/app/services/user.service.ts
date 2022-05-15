@@ -24,13 +24,13 @@ export class UserService {
  
   constructor(private httpClient: HttpClient) { }
 
-  saveUser(username: string |undefined ) {
+  async saveUser(username: string |undefined ) {
     localStorage.setItem('username', username!);
     this.loggedInUser.next(username!);
   }
 
-  saveMemberId(id: number | undefined){
-    localStorage.setItem('memberId', id?.toString()!);
+  async saveMemberId(id: number | undefined){
+    localStorage.setItem('userId', id?.toString()!);
     this.loggedInUser.next(id?.toString()!);
   }
 
@@ -38,7 +38,11 @@ export class UserService {
      return this.httpClient.post(this.baseUrl + `/register`, user, {headers:this.header}) as Observable<User>;
    }
 
-  login(user: User): Observable<string> {
-    return this.httpClient.post(this.baseUrl + `/login`, user, {responseType: 'text'}) as Observable<string>;
+   async getRole(username: string){
+    return await this.httpClient.get(this.baseUrl + `/getRole/` + username, {responseType: 'text'}).toPromise();
+   }
+
+   async login(user: User){
+    return await this.httpClient.post(this.baseUrl + `/login`, user, {responseType: 'text'}).toPromise();
   }
 }

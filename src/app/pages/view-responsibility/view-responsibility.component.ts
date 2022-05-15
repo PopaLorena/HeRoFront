@@ -20,9 +20,16 @@ export class ViewResponsibilityComponent implements OnInit {
   subscriptionList: Subscription[] = [];
   eventId! : number;
   member!: Member;
+  role: string = localStorage.getItem("role")!;
   constructor(private responsibilityService: ResponsibilityService, private memberService: MemberService, private router: Router, private activatedRoute: ActivatedRoute, public dialog: MatDialog) {
   }
 
+  isAdmin(): boolean{
+    if(this.role == "Admin")
+      return true;
+    else return false;
+  }
+  
   ngOnInit(): void {
     this.subscriptionList.push(
       this.activatedRoute.params.subscribe((param) => {

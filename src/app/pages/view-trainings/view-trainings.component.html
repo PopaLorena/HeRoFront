@@ -1,5 +1,5 @@
 <div class="buttons">
-    <button mat-raised-button color="accent"  (click)="add()" >Add training</button>
+    <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="add()" >Add training</button>
     <button mat-raised-button color="accent" *ngIf="!isActiveList" (click)="activeList()" >See future trainings only</button>
     <button mat-raised-button color="accent" *ngIf="isActiveList" (click)="activeList()" >See all trainings</button>
 </div>
@@ -14,10 +14,10 @@
         <p>
             <b>Facilitator</b><i> {{ training.trainerName }}</i>
         </p>
-        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(training)" (click)="edit(training.id)" >Edit</button>
-        <button mat-raised-button color="accent" (click)="delete(training.id)"  >Delete</button>
+        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(training) && isAdmin()" (click)="edit(training.id)" >Edit</button>
+        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="delete(training.id)"  >Delete</button>
         <button mat-raised-button color="accent" (click)="openDialog(training)">All Pax</button>
-        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(training)" >Apply</button>
+        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(training) && !training.hadApply" (click)="apply(training.id)">Apply</button>
     </div>
 </div>
 <div  *ngIf="isActiveList"  class="items">
@@ -31,9 +31,9 @@
         <p>
             <b>Facilitator</b><i> {{ training.trainerName }}</i>
         </p>
-        <button mat-raised-button color="accent"  (click)="edit(training.id)" >Edit</button>
-        <button mat-raised-button color="accent"  (click)="delete(training.id)" >Delete</button>
+        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="edit(training.id)" >Edit</button>
+        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="delete(training.id)" >Delete</button>
         <button mat-raised-button color="accent" (click)="openDialog(training)">All Pax</button>
-        <button mat-raised-button color="accent" >Apply</button>
+        <button mat-raised-button color="accent"  *ngIf="!training.hadApply"  (click)="apply(training.id)">Apply</button>
     </div>
 </div>

@@ -24,10 +24,10 @@ getMemberByTrainingId(id: number): Observable<Member[]> {
 }
 
 addMemberTrainings(memberId:number, trainingId: number): Observable<MemberTraining> {
-  return this.httpClient.post(this.baseUrl + `/post/`+ memberId + `/` + trainingId, { headers: this.header }) as Observable<MemberTraining>;
+  return this.httpClient.post(this.baseUrl + `/post/`+ memberId + `/` + trainingId, null, { headers: this.header }) as Observable<MemberTraining>;
 }
 
-CheckIfExist(memberId:number,trainingId: number): Observable<boolean> {
-  return this.httpClient.get(this.baseUrl + `/Check/`+ memberId+ "/" + trainingId, { headers: this.header }) as Observable<boolean>;
+async CheckIfExist(memberId:number,trainingId: number){
+  return  await this.httpClient.get(this.baseUrl + `/Check/`+ memberId+ "/" + trainingId, { headers: this.header }).toPromise();
 }
 }

@@ -1,5 +1,5 @@
 <div class="buttons">
-    <button mat-raised-button color="accent"  (click)="add()" >Add event</button>
+    <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="add()" >Add event</button>
     <button mat-raised-button color="accent" *ngIf="!isActiveList" (click)="activeList()" >See future events</button>
     <button mat-raised-button color="accent" *ngIf="isActiveList" (click)="activeList()" >See all events</button>
 </div>
@@ -14,8 +14,8 @@
         <p>
             <b>End Date:</b><i> {{ event.endDate | date}}</i>
         </p>
-         <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(event)" (click)="edit(event.id)" >Edit</button> 
-        <button mat-raised-button color="accent" (click)="delete(event.id)" >Delete</button>
+         <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(event) && isAdmin()" (click)="edit(event.id)" >Edit</button> 
+        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="delete(event.id)" >Delete</button>
         <button mat-raised-button color="accent" (click)="goToResp(event)" >All resp</button>
     </div>
 </div>
@@ -30,8 +30,8 @@
         <p>
             <b>End Date:</b><i> {{ event.endDate | date}}</i>
         </p>
-        <button mat-raised-button color="accent" (click)="edit(event.id)" >Edit</button>
-        <button mat-raised-button color="accent" (click)="delete(event.id)" >Delete</button>
+        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="edit(event.id)" >Edit</button>
+        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="delete(event.id)" >Delete</button>
         <button mat-raised-button color="accent" (click)="goToResp(event)" >All resp</button>
     </div>
 </div>

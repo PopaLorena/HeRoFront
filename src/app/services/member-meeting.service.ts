@@ -27,7 +27,7 @@ export class MemberMeetingService {
     return this.httpClient.post(this.baseUrl + `/post/`+ memberId + `/` + meetingId, null, { headers: this.header }) as Observable<MemberMeeting>;
   }
 
-  CheckIfExist(memberId:number, meetingId: number): Observable<boolean> {
-    return this.httpClient.get(this.baseUrl + `/Check/`+ memberId+ "/" + meetingId, { headers: this.header }) as Observable<boolean>;
+  async CheckIfExist(memberId:number, meetingId: number) {
+    return await this.httpClient.get(this.baseUrl + `/Check/`+ memberId+ "/" + meetingId, { headers: this.header }).toPromise();
   }
 }

@@ -1,6 +1,6 @@
 
 <div class="buttons">
-    <button mat-raised-button color="accent" (click)="add()" >Add Member</button>
+    <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="add()" >Add Member</button>
 
 </div>
 <div   class="items">
@@ -14,8 +14,8 @@
         <p>
             <b>statut</b><i> {{ member.statut }}</i>
         </p>
-        <button mat-raised-button color="accent" (click)="edit(member.id)" >Edit</button>
-        <button mat-raised-button color="accent" (click)="delete(member.id)" >Delete</button>
+        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="edit(member.id)" >Edit</button>
+        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="delete(member.id)" >Delete</button>
         <button mat-raised-button color="accent" (click)="goToMember(member.id)" >View</button>
     </div>
 

@@ -13,8 +13,14 @@ export class ViewMembersComponent implements OnInit {
   members!: Member[];
   activeMembers!: Member[];
   isActiveList = true;
+  role: string = localStorage.getItem("role")!;
   constructor(private memberService: MemberService, private router: Router) {}
 
+  isAdmin(): boolean{
+    if(this.role == "Admin")
+      return true;
+    else return false;
+  }
 
   getMemberList(): void {
     this.memberService.getMembers().subscribe((list: Member[]) => {

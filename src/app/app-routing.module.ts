@@ -44,6 +44,7 @@ const routes: Routes = [
   { path: 'EditResponsibility/:eventId/:respId', component: EditResponsibilityComponent },
   { path: 'CreateUser', component: CreateUserComponent },
   { path: 'ViewMember/:memberId', component: ViewMemberComponent },
+  { path: '**', redirectTo: 'Home' },
 ];
 
 @NgModule({

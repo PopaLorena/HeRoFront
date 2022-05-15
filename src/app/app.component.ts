@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'HeRoFront';
+ 
+  isLog(): boolean {
+    if (localStorage.getItem("isLog") == "true")
+      return true;
+
+    return false;
+  }
 }

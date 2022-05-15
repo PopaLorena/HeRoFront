@@ -76,6 +76,12 @@ export class EditEventComponent implements OnInit {
   private setEditEvents(id: number): void {
     this.eventService.getEventById(id).subscribe((event: Events) => {
       this.eventToEdit = event;
+    }); 
+    
+    this.eventService.getEvents().subscribe((list) => {
+      this.form.patchValue(this.eventToEdit!, {
+        emitEvent: false
+      });
     });
   }
 

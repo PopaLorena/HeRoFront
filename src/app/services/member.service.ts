@@ -22,8 +22,8 @@ export class MemberService {
     return this.httpClient.get(this.baseUrl + `/get/`+ memberId , {headers:this.header}) as Observable<Member>;
   }
 
-  getMemberByUsername(username: string): Observable<number> {
-    return this.httpClient.get(this.baseUrl + `/get/byUsername/`+ username , {headers:this.header}) as Observable<number>;
+  async getMemberByUsername(username: string){
+    return await this.httpClient.get(this.baseUrl + `/get/byUsername/`+ username , {headers:this.header}).toPromise();
   }
   
   addMember(newMember: Member): Observable<Member> {

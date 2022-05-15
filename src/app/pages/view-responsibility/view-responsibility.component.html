@@ -1,5 +1,5 @@
 <div class="buttons">
-    <button mat-raised-button color="accent" (click)="add()" >Add responsibility</button>
+    <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="add()" >Add responsibility</button>
 
 </div>
 <div class="items">
@@ -17,8 +17,8 @@
             <b>responsible:</b><i> {{ responsibility.responsible!.name }}</i>
         </p>
         <button mat-raised-button color="accent" (click)="openDialog(responsibility)" >see more</button> 
-        <button mat-raised-button color="accent" (click)="edit(responsibility.id)"  >Edit</button>
-        <button mat-raised-button color="accent" (click)="delete(responsibility.id)">Delete</button>
+        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="edit(responsibility.id)"  >Edit</button>
+        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="delete(responsibility.id)">Delete</button>
     </div>
 </div>
 

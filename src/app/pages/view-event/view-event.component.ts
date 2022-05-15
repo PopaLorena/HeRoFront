@@ -13,9 +13,17 @@ export class ViewEventComponent implements OnInit {
   events!: Events[];
   activeEvents!: Events[];
   isActiveList = false;
+  role: string = localStorage.getItem("role")!;
   constructor(private eventService: EventsService, private activatedRoute: ActivatedRoute,
     private router: Router) {
   }
+
+  isAdmin(): boolean{
+    if(this.role == "Admin")
+      return true;
+    else return false;
+  }
+
   goToResp(event: Events): void{
     this.router.navigate(['Responsibilities/', event.id]);
   }

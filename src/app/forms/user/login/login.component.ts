@@ -16,62 +16,59 @@ export class LoginComponent implements OnInit {
   formGroup!: FormGroup;
   invalidLogin!: boolean;
   formSubmitted!: boolean;
-  memberId! : number;
+  memberId!: any| number;
   user: User;
+  role?: any | string;
   errorText?: String;
   constructor(private router: Router,
     private userService: UserService,
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
     private memberService: MemberService) {
-      this.user = new User();
+    this.user = new User();
   }
 
-  login(){
+  async login() {
 
     const isValid = this.formGroup.valid;
     //this.valid.emit(isValid);
     if (!isValid) {
       //this.snackBar.open('Invalid username or password!');
       this.formSubmitted = true;
-      return ;
+      return;
     }
     this.user.username = this.formGroup.controls.username.value;
     this.user.password = this.formGroup.controls.password.value;
 
-    this.userService.saveUser(this.user.username);
-    
-    this.memberService.getMemberByUsername(this.user.username!).subscribe((m: number) => {
-      this.memberId = m;
-      localStorage.setItem("userId", m.toString());
-    }, (err) => {
-      if (err.status === 401)
-        return;
-    });;
+    await this.userService.saveUser(this.user.username);
 
-    this.userService.saveMemberId(this.memberId);
+    this.memberId = await this.memberService.getMemberByUsername(this.user.username!);
+ 
 
-    this.userService.login(this.user)
-    .subscribe({
-      next: (response) => {
-        const token = response;
-        localStorage.setItem("jwt", token);
-        this.invalidLogin = false;
-        this.router.navigate(['Home']);
-      },
-      error: (err) => {
-        console.log(err);
-        this.errorText = err.error;
-        this.invalidLogin = true;
-      }
-    })
-    console.log( localStorage.getItem('jwt'));
+    await this.userService.saveMemberId(this.memberId);
+
+    try {
+      const token = await this.userService.login(this.user);
+      localStorage.setItem("jwt", token!);
+      localStorage.setItem("isLog", "true");
+      this.invalidLogin = false;
+      this.router.navigate(['Home']);
+      console.log(localStorage.getItem('jwt'));
+    }
+    catch (err: any) {
+      console.log(err);
+      this.errorText = err.error;
+      this.invalidLogin = true;
+    }
+
+    this.role = await this.userService.getRole(this.user.username!);
+    localStorage.setItem("role", this.role);
   }
 
   ngOnInit(): void {
     this.createForm();
   }
 
-  onBlur(controlName: string){
+  onBlur(controlName: string) {
     //console.log(controlName);
   }
 

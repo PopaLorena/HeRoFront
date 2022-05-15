@@ -1,5 +1,5 @@
 <div class="buttons">
-    <button mat-raised-button color="accent" (click)="add()" >Add meeting</button>
+    <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="add()" >Add meeting</button>
     <button mat-raised-button color="accent" *ngIf="!isActiveList" (click)="activeList()" >See future meetings</button>
     <button mat-raised-button color="accent" *ngIf="isActiveList" (click)="activeList()" >See all meetings</button>
 </div>
@@ -14,8 +14,8 @@
         <p>
             <b>Facilitator</b><i> {{ meeting.facilitatorName }}</i>
         </p>
-        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(meeting)" (click)="edit(meeting.id)" >Edit</button>
-        <button mat-raised-button color="accent" (click)="delete(meeting.id)" >Delete</button>
+        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(meeting) && isAdmin()" (click)="edit(meeting.id)" >Edit</button>
+        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="delete(meeting.id)" >Delete</button>
         <button mat-raised-button color="accent" (click)="openDialog(meeting)">All Pax</button>
         <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(meeting) && !meeting.hadApply"  (click)="apply(meeting.id)">Apply</button>
         <!-- && !isOnTheList(meeting.id) -->
@@ -32,8 +32,8 @@
         <p>
             <b>Facilitator</b><i> {{ meeting.facilitatorName }}</i>
         </p>
-        <button mat-raised-button color="accent" (click)="edit(meeting.id)" >Edit</button>
-        <button mat-raised-button color="accent" (click)="delete(meeting.id)" >Delete</button>
+        <button mat-raised-button color="accent" *ngIf="isAdmin()"  (click)="edit(meeting.id)" >Edit</button>
+        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="delete(meeting.id)" >Delete</button>
         <button mat-raised-button color="accent" (click)="openDialog(meeting)">All Pax</button>
         <button mat-raised-button color="accent"  *ngIf="!meeting.hadApply"  (click)="apply(meeting.id)">Apply</button>
     </div>

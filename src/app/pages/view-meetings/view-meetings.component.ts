@@ -22,26 +22,36 @@ export class ViewMeetingsComponent implements OnInit {
   exist: boolean = false;
   memberMeeting: MemberMeeting = new MemberMeeting();
   memberId = localStorage.getItem('userId');
-  participants: Member[] = [];
+  participants: any| Member[] = [];
+  role: string = localStorage.getItem("role")!;
   constructor(private meetingService: MeetingService, private memberMeetingService: MemberMeetingService, private router: Router, public dialog: MatDialog) {
+  }
+
+  isAdmin(): boolean{
+    if(this.role == "Admin")
+      return true;
+    else return false;
   }
 
   getMeetingList(): void {
     this.meetingService.getMeetings().subscribe((list: Meeting[]) => {
       this.meetings = list;
+      this.meetings?.forEach(async x => {
+          if(await this.isOnTheList(x.id)){
+            x.hadApply = true;
+          }
+          else {
+            x.hadApply = false;
+          }
+      })
     }, (err) => {
       if (err.status === 401)
         return;
     });
   }
 
-  openDialog(meeting: Meeting): void {
-    this.meetingService.getParticipants(meeting.id!).subscribe((list: Member[]) => {
-      this.participants = list;
-    }, (err) => {
-      if (err.status === 401)
-        return;
-    });
+  async openDialog(meeting: Meeting) {
+    this.participants = await this.meetingService.getParticipants(meeting.id!);
 
     const dialogRef = this.dialog.open(ViewMeetingParticipantsComponent, {
       width: '250px',
@@ -56,17 +66,17 @@ export class ViewMeetingsComponent implements OnInit {
   getActiveMeetingList(): void {
     this.getMeetingList();
     this.activeMeetings = [];
-
-    this.meetings?.forEach(x => {
+    this.meetings?.forEach(async x => {
       if (this.isGreaterThanNow(x)) {
         this.activeMeetings.push(x);
-        if(this.isOnTheList(x.id)){
+        if(await this.isOnTheList(x.id)){
           x.hadApply = true;
         }
         else {
           x.hadApply = false;
         }
       }
+      console.log(x.hadApply);
     })
   }
 
@@ -89,20 +99,15 @@ export class ViewMeetingsComponent implements OnInit {
 
   apply(id: number | undefined): void {
     this.memberMeetingService.addMemberMeetings(parseInt(this.memberId!), id!).subscribe((m: MemberMeeting) => {
+      window.location.reload();
     },
     (err) => {
       console.log(err);
     });
   }
 
-  isOnTheList(id: number | undefined): boolean {
-    this.memberMeetingService.CheckIfExist(parseInt(this.memberId!), id!).subscribe((exist: boolean) => {
-      return exist;
-    }, (err) => {
-      if (err.status === 401)
-        return;
-    });
-    return this.exist;
+  async isOnTheList(id: number | undefined){
+    return await this.memberMeetingService.CheckIfExist(parseInt(this.memberId!), id!);
   }
 
   isGreaterThanNow(x: Meeting): boolean {

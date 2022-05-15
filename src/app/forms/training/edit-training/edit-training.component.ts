@@ -69,10 +69,9 @@ export class EditTrainingComponent implements OnInit {
     this.updateTraining(newTraining);
   }
 
-  private setEditTraining(id: number): void {
-    this.trainingService.getTrainingById(id).subscribe((training: Training) => {
-      this.trainingToEdit = training;
-    });
+  private async setEditTraining(id: number): Promise<void> {
+    this.trainingToEdit = await this.trainingService.getTrainingById(id);
+    
     this.trainingService.getTrainings().subscribe((list) => {
       this.form.patchValue(this.trainingToEdit!, {
         emitEvent: false

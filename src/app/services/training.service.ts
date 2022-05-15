@@ -29,16 +29,16 @@ export class TrainingService {
     return this.httpClient.get(this.baseUrl + `/getSort`) as Observable<Training[]>;
   }
 
-  getTrainingById(Id: number): Observable<Training> {
-    return this.httpClient.get(this.baseUrl + `/get/`+ Id , {headers:this.header}) as Observable<Training>;
+  async getTrainingById(Id: number) {
+    return await this.httpClient.get(this.baseUrl + `/get/`+ Id , {headers:this.header}).toPromise();
   }
 
   getTrainingsByMemberId(memberId: number): Observable<Training[]> {
     return this.httpClient.get(this.baseUrl + `/getByMemberId/`+ memberId , {headers:this.header}) as Observable<Training[]>;
   }
 
-  getParticipants(trainingId: number): Observable<Member[]>{
-    return this.httpClient.get(this.baseUrl + `/getParticipants/`+ trainingId , {headers:this.header}) as Observable<Member[]>;
+  async getParticipants(trainingId: number){
+    return await this.httpClient.get(this.baseUrl + `/getParticipants/`+ trainingId , {headers:this.header}).toPromise();
   }
   
   addTraining(newTraining: Training): Observable<Training> {

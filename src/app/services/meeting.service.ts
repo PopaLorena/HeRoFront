@@ -39,8 +39,8 @@ updateMeeting(newMeeting: Meeting): Observable<Meeting> {
   return this.httpClient.patch(this.baseUrl + `/edit/`+newMeeting.id, newMeeting, {headers:this.header}) as Observable<Meeting>;
 }
 
-getParticipants(meetingId: number): Observable<Member[]>{
-  return this.httpClient.get(this.baseUrl + `/getParticipants/`+ meetingId , {headers:this.header}) as Observable<Member[]>;
+ async getParticipants(meetingId: number){
+  return await this.httpClient.get(this.baseUrl + `/getParticipants/`+ meetingId , {headers:this.header}).toPromise();
 }
 
 deleteMeeting(id: number): Observable<null>  {
