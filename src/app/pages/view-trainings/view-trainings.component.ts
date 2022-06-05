@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog} from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { MemberTrainingService } from 'src/app/services/member-training.service';
 import { TrainingService } from 'src/app/services/training.service';
 import { Member } from 'src/models/member';
@@ -20,8 +21,9 @@ export class ViewTrainingsComponent implements OnInit {
   participants: any | Member[] = [];
   memberId = localStorage.getItem('userId');
   role: string = localStorage.getItem("role")!;
-
-  constructor(public dialog: MatDialog, private memberTrainingService: MemberTrainingService, private trainingService: TrainingService, private router: Router) {
+  subscriptionList: Subscription[] = [];
+  choseTraining!: number;
+  constructor(public dialog: MatDialog, private memberTrainingService: MemberTrainingService, private trainingService: TrainingService, private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
   isAdmin(): boolean{
@@ -29,7 +31,22 @@ export class ViewTrainingsComponent implements OnInit {
       return true;
     else return false;
   }
-  
+
+  ngOnInit(): void {
+    if (!this.isActiveList)
+      this.getActiveTrainingList();
+    else {
+      this.getTrainingList();
+    }
+    this.subscriptionList.push(
+      this.activatedRoute.params.subscribe((param) => {
+        if (param.trainingId && parseInt(param.trainingId, 10)) {
+          this.choseTraining = parseInt(param.trainingId, 10);
+        }
+      })
+    )
+  }
+
   getTrainingList(): void {
     this.trainingService.getTrainings().subscribe((list: Training[]) => {
       this.trainings = list;
@@ -124,16 +141,9 @@ export class ViewTrainingsComponent implements OnInit {
     return true;
   }
 
-  ngOnInit(): void {
-    if (!this.isActiveList)
-      this.getActiveTrainingList();
-    else {
-      this.getTrainingList();
-    }
-  }
-
   activeList(): void {
     this.getActiveTrainingList();
     this.isActiveList = !this.isActiveList;
+    this.choseTraining = -10;
   }
 }

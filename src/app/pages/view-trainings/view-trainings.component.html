@@ -5,6 +5,7 @@
 </div>
 <div  *ngIf="!isActiveList"  class="items">
     <div *ngFor="let training of trainings" [className]="isGreaterThanNow(training)? 'activeTrainings':'trainings'">
+        <div [className]="choseTraining == training.id? 'getTraining':''" >
         <p>
             <b>Name:</b> <i> {{ training.name }}</i>
         </p>
@@ -15,10 +16,11 @@
             <b>Facilitator</b><i> {{ training.trainerName }}</i>
         </p>
         <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(training) && isAdmin()" (click)="edit(training.id)" >Edit</button>
-        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="delete(training.id)"  >Delete</button>
+        <button mat-raised-button color="accent" class="btn-slice"  *ngIf="isAdmin()" (click)="delete(training.id)" ><span>Delete</span></button>
         <button mat-raised-button color="accent" (click)="openDialog(training)">All Pax</button>
         <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(training) && !training.hadApply" (click)="apply(training.id)">Apply</button>
     </div>
+</div>
 </div>
 <div  *ngIf="isActiveList"  class="items">
     <div *ngFor="let training of activeTrainings" class="activeTrainings">
@@ -32,7 +34,7 @@
             <b>Facilitator</b><i> {{ training.trainerName }}</i>
         </p>
         <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="edit(training.id)" >Edit</button>
-        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="delete(training.id)" >Delete</button>
+        <button mat-raised-button color="accent" class="btn-slice"  *ngIf="isAdmin()" (click)="delete(training.id)" ><span>Delete</span></button>
         <button mat-raised-button color="accent" (click)="openDialog(training)">All Pax</button>
         <button mat-raised-button color="accent"  *ngIf="!training.hadApply"  (click)="apply(training.id)">Apply</button>
     </div>

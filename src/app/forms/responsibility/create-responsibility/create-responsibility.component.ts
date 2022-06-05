@@ -20,9 +20,8 @@ export class CreateResponsibilityComponent implements OnInit {
   selectedMember : Member = new Member();
   memberId! : number ;
   subscriptionList: Subscription[] = [];
-  private responsibilityToEdit: Responsibility | undefined = new Responsibility();
+  errorText?: string;
   
-
   constructor(private formBuilder: FormBuilder,
     private responsibilityService: ResponsibilityService,
     private memberService: MemberService,
@@ -32,6 +31,7 @@ export class CreateResponsibilityComponent implements OnInit {
  
 
   ngOnInit(): void {
+    this.errorText="";
     this.createForm();
     this.subscriptionList.push(
       this.activatedRoute.params.subscribe((param) => {
@@ -54,28 +54,23 @@ export class CreateResponsibilityComponent implements OnInit {
     });
   }
 
-  myFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    return day !== 0 && day !== 6;
-  }
-
-  
   private addResponsibility(newResponsibility: Responsibility): void {
     newResponsibility.eventId = this.eventId;
     this.responsibilityService.addResponsibility(this.eventId, newResponsibility.responsibleId!, newResponsibility).subscribe(() => {
       this.router.navigate(['Responsibilities/' + this.eventId])
+    }, (err) => {
+      this.errorText = err.error;
     });
   }
 
- 
-  goBackClick(): void {
-    this.router.navigate(['Responsibilities/'+ this.eventId]);
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    return day !== 0 && day !== 6;
   }
-
+  
   saveNewResponsibility(): void {
     const isValid = this.form.valid;
     const newResponsibility: Responsibility = {
-      ...this.responsibilityToEdit,
       ...this.form.getRawValue(),
     };
     if (!isValid) {

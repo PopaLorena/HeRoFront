@@ -15,8 +15,10 @@
             <b>statut</b><i> {{ member.statut }}</i>
         </p>
         <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="edit(member.id)" >Edit</button>
-        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="delete(member.id)" >Delete</button>
+        <button mat-raised-button color="accent" class="btn-slice"  *ngIf="isAdmin()" (click)="delete(member.id)" ><span>Delete</span></button>
         <button mat-raised-button color="accent" (click)="goToMember(member.id)" >View</button>
+        <button mat-raised-button color="accent" *ngIf="isAdmin() && !member.userIsAdmin" (click)="setAsAdmin(member!)" >Set As Admin</button> 
+        <button mat-raised-button color="accent" *ngIf="isAdmin() && member.userIsAdmin" (click)="setAsUser(member!)" >Set As User</button> 
     </div>
 
 </div>

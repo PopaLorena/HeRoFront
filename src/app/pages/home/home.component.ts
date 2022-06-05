@@ -19,8 +19,17 @@ export class HomeComponent implements OnInit {
   constructor(private meetingService: MeetingService, private trainingService: TrainingService, private router: Router) {
   }
 
-  goTo(id: string) {
-    this.router.navigate(['/view-item/' + id]);
+  ngOnInit(): void {
+    this.getTrainingList();
+     this.getMeetingList();
+  }
+
+  goToMeeting(id: number) {
+    this.router.navigate(['/Meetings/' + id]);
+  }
+
+  goToTraining(id: number) {
+    this.router.navigate(['/Trainings/' + id]);
   }
 
   getMeetingList(): void {
@@ -40,11 +49,4 @@ export class HomeComponent implements OnInit {
        return;
     });
   }
-
-  ngOnInit(): void {
-
-    this.getTrainingList();
-     this.getMeetingList();
-  }
-
 }

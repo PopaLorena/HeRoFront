@@ -10,7 +10,7 @@
               <td>
                 <mat-form-field class="example-full-width">
                   <input matInput type="text" placeholder="Username" formControlName="username" name="username" required
-                    (blur)="onBlur('username')" />
+                     />
                 </mat-form-field>
                 <p class="form-error" *ngIf="formSubmitted && formGroup.controls.username.hasError('minlength')">Numarul
                   minim de caractere este 3.</p>
@@ -31,7 +31,6 @@
       <mat-card-actions>
         <p class="error">{{errorText}}</p>
         <button mat-raised-button (click)="login()" color="primary">Login</button>
-        <!-- <button mat-raised-button (click)="signup()" color="accent">Create account</button> -->
       </mat-card-actions>
     </mat-card>
     </div>

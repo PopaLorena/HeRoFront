@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SideInfoComponent } from './side-info.component';
+import { ChangePasswordFormComponent } from './change-password-form.component';
 
-describe('SideInfoComponent', () => {
-  let component: SideInfoComponent;
-  let fixture: ComponentFixture<SideInfoComponent>;
+describe('ChangePasswordFormComponent', () => {
+  let component: ChangePasswordFormComponent;
+  let fixture: ComponentFixture<ChangePasswordFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SideInfoComponent ]
+      declarations: [ ChangePasswordFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SideInfoComponent);
+    fixture = TestBed.createComponent(ChangePasswordFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { MeetingService } from 'src/app/services/meeting.service';
 import { MemberMeetingService } from 'src/app/services/member-meeting.service';
 import { Meeting } from 'src/models/meeting';
@@ -24,9 +25,25 @@ export class ViewMeetingsComponent implements OnInit {
   memberId = localStorage.getItem('userId');
   participants: any| Member[] = [];
   role: string = localStorage.getItem("role")!;
-  constructor(private meetingService: MeetingService, private memberMeetingService: MemberMeetingService, private router: Router, public dialog: MatDialog) {
+  subscriptionList: Subscription[] = [];
+  choseMeeting!: number;
+  constructor(private meetingService: MeetingService, private memberMeetingService: MemberMeetingService, private router: Router, public dialog: MatDialog, private activatedRoute: ActivatedRoute) {
   }
 
+  ngOnInit(): void {
+    if (!this.isActiveList)
+      this.getActiveMeetingList();
+    else {
+      this.getMeetingList();
+    }
+    this.subscriptionList.push(
+      this.activatedRoute.params.subscribe((param) => {
+        if (param.meetingId && parseInt(param.meetingId, 10)) {
+          this.choseMeeting = parseInt(param.meetingId, 10);
+        }
+      })
+    )
+  }
   isAdmin(): boolean{
     if(this.role == "Admin")
       return true;
@@ -127,13 +144,7 @@ export class ViewMeetingsComponent implements OnInit {
     return true;
   }
 
-  ngOnInit(): void {
-    if (!this.isActiveList)
-      this.getActiveMeetingList();
-    else {
-      this.getMeetingList();
-    }
-  }
+
 
   activeList(): void {
     this.getActiveMeetingList();

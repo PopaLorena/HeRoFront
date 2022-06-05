@@ -13,16 +13,15 @@ import { Member } from 'src/models/member';
 export class CreateMemberComponent implements OnInit {
 
   statut: string[] = ["Baby","Activ"];
+  errorText?: string;
   params!: string;
   form!: FormGroup;
   userId! : number ;
   subscriptionList: Subscription[] = [];
   private memberToEdit: Member | undefined = new Member();
-  file!: File ; // Variable to store file
-  shortLink: string = "";
-  loading: boolean = false; // Flag variable
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private memberService: MemberService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -30,6 +29,7 @@ export class CreateMemberComponent implements OnInit {
  
 
   ngOnInit(): void {
+    this.errorText="";
     this.createForm();
     this.subscriptionList.push(
       this.activatedRoute.params.subscribe((param) => {
@@ -38,12 +38,7 @@ export class CreateMemberComponent implements OnInit {
         }
       })
     )
-
   }
-
-  onChange(event : any) {
-    this.file = event.target.files[0];
-}
 
   ngOnDestroy(): void {
     this.subscriptionList.forEach((sub) => {
@@ -51,25 +46,20 @@ export class CreateMemberComponent implements OnInit {
     });
   }
 
-  myFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    return day !== 0 && day !== 6;
-  }
-
-  
   private addMember(newMember: Member): void {
     newMember.startDate = new Date();
     newMember.userId = this.userId;
     this.memberService.addMember(newMember).subscribe(() => {
       this.router.navigate(['Members'])
+    }, (err) => {
+      this.errorText = err.error;
     });
   }
 
- 
-  goBackClick(): void {
-    this.router.navigate(['Members']);
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    return day !== 0 && day !== 6;
   }
-
   saveNewMember(): void {
     const isValid = this.form.valid;
     const newMember: Member = {
@@ -90,7 +80,7 @@ export class CreateMemberComponent implements OnInit {
       photoUrl: [null],
       university: [null],
       telNumber: [null],
-      statut:[null],
+      statut:["Baby"],
     });
   }
 }

@@ -1,11 +1,9 @@
+<h1>Create Responsibility</h1>
 <div class="image">
-    <button mat-fab color="primary" (click)="goBackClick()">
-        <mat-icon>arrow_back</mat-icon>
-    </button>
     <div class="form" [formGroup]="form">
         <mat-form-field appearance="outline">
-            <mat-label>name</mat-label>
-            <input matInput type="text" formControlName="name" placeholder="name" required />
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="name" placeholder="Name" required />
             <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
         </mat-form-field>
 
@@ -32,12 +30,14 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-            <mat-select formControlName="responsibleId" >
-                <mat-option *ngFor="let responsible of members" [value]="responsible.id" >
+            <mat-select formControlName="responsibleId" placeholder="Responsible">
+                <mat-option *ngFor="let responsible of members" [value]="responsible.id"  >
                     {{responsible.name}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <button mat-raised-button color="primary" (click)="saveNewResponsibility()">Save</button>
+        <p class="error">{{errorText}}</p>
+        <button mat-raised-button color="primary" *ngIf="form.valid" class="ValidatedButton" (click)="saveNewResponsibility()">Save</button>
+        <button mat-raised-button color="primary" *ngIf="!form.valid" >Save</button>
     </div>
 </div>

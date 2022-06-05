@@ -19,6 +19,8 @@ import { CreateMeetingComponent } from './forms/meeting/create-meeting/create-me
 import { CreateResponsibilityComponent } from './forms/responsibility/create-responsibility/create-responsibility.component';
 import { EditResponsibilityComponent } from './forms/responsibility/edit-responsibility/edit-responsibility.component';
 import { ViewMemberComponent } from './pages/view-member/view-member.component';
+import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
+import { RoleGuardService as RoleGuard } from './services/role-guard.service';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -26,26 +28,73 @@ export function tokenGetter() {
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'Home', component: HomeComponent },
-  { path: 'Events', component: ViewEventComponent },
-  { path: 'EditEvent/:eventId', component: EditEventComponent },
-  { path: 'CreateEvent', component: CreateEventComponent },
-  { path: 'Trainings', component: ViewTrainingsComponent },
-  { path: 'EditTraining/:trainingId', component: EditTrainingComponent },
-  { path: 'CreateTraining', component: CreateTrainingComponent },
-  { path: 'Meetings', component: ViewMeetingsComponent },
-  { path: 'EditMeeting/:meetingId', component: EditMeetingComponent },
-  { path: 'CreateMeeting', component: CreateMeetingComponent },
-  { path: 'Members', component: ViewMembersComponent },
-  { path: 'EditMember/:memberId', component: EditMemberComponent },
-  { path: 'CreateMember/:userId', component: CreateMemberComponent },
-  { path: 'Responsibilities/:eventId', component: ViewResponsibilityComponent },
-  { path: 'CreateResponsibility/:eventId', component: CreateResponsibilityComponent },
-  { path: 'EditResponsibility/:eventId/:respId', component: EditResponsibilityComponent },
-  { path: 'CreateUser', component: CreateUserComponent },
-  { path: 'ViewMember/:memberId', component: ViewMemberComponent },
+  { path: 'Home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'Events', component: ViewEventComponent, canActivate: [AuthGuard] },
+  {path: 'EditEvent/:eventId', component: EditEventComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin'
+    }
+  },
+  {path: 'CreateEvent', component: CreateEventComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin'
+    }
+  },
+  { path: 'Trainings', component: ViewTrainingsComponent, canActivate: [AuthGuard] },
+  { path: 'Trainings/:trainingId', component: ViewTrainingsComponent, canActivate: [AuthGuard] },
+  {path: 'EditTraining/:trainingId', component: EditTrainingComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin'
+    }
+  },
+  {path: 'CreateTraining', component: CreateTrainingComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin'
+    }
+  },
+  { path: 'Meetings', component: ViewMeetingsComponent, canActivate: [AuthGuard] },
+  { path: 'Meetings/:meetingId', component: ViewMeetingsComponent, canActivate: [AuthGuard] },
+  {path: 'EditMeeting/:meetingId', component: EditMeetingComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin'
+    }
+  },
+  {path: 'CreateMeeting', component: CreateMeetingComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin'
+    }
+  },
+  { path: 'Members', component: ViewMembersComponent, canActivate: [AuthGuard] },
+  {path: 'EditMember/:memberId', component: EditMemberComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin'
+    }
+  },
+  {path: 'CreateMember/:userId', component: CreateMemberComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin'
+    }
+  },
+  { path: 'Responsibilities/:eventId', component: ViewResponsibilityComponent, canActivate: [AuthGuard] },
+  {path: 'CreateResponsibility/:eventId', component: CreateResponsibilityComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin'
+    }
+  },
+  {path: 'EditResponsibility/:eventId/:respId', component: EditResponsibilityComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin'
+    }
+  },
+  {path: 'CreateUser', component: CreateUserComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin'
+    }
+  },
+  { path: 'ViewMember/:memberId', component: ViewMemberComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'Home' },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

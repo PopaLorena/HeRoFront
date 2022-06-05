@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   user: User;
   role?: any | string;
   errorText?: String;
+
   constructor(private router: Router,
     private userService: UserService,
     private formBuilder: FormBuilder,
@@ -27,23 +28,23 @@ export class LoginComponent implements OnInit {
     this.user = new User();
   }
 
-  async login() {
+  ngOnInit(): void {
+    this.createForm();
+  }
 
+  async login() {
     const isValid = this.formGroup.valid;
-    //this.valid.emit(isValid);
+    
     if (!isValid) {
-      //this.snackBar.open('Invalid username or password!');
       this.formSubmitted = true;
       return;
     }
+
     this.user.username = this.formGroup.controls.username.value;
     this.user.password = this.formGroup.controls.password.value;
 
     await this.userService.saveUser(this.user.username);
-
     this.memberId = await this.memberService.getMemberByUsername(this.user.username!);
- 
-
     await this.userService.saveMemberId(this.memberId);
 
     try {
@@ -52,8 +53,8 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("isLog", "true");
       this.invalidLogin = false;
       this.router.navigate(['Home']);
-      console.log(localStorage.getItem('jwt'));
     }
+    
     catch (err: any) {
       console.log(err);
       this.errorText = err.error;
@@ -64,13 +65,7 @@ export class LoginComponent implements OnInit {
     localStorage.setItem("role", this.role);
   }
 
-  ngOnInit(): void {
-    this.createForm();
-  }
 
-  onBlur(controlName: string) {
-    //console.log(controlName);
-  }
 
   createForm(): void {
     this.formGroup = this.formBuilder.group({

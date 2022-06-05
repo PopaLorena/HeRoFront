@@ -1,7 +1,5 @@
+<h1>Edit Member</h1>
 <div class="image">
-    <button mat-fab color="primary" (click)="goBackClick()">
-        <mat-icon>arrow_back</mat-icon>
-    </button>
     <div class="form" [formGroup]="form">
         <mat-form-field appearance="outline">
             <mat-label>full name</mat-label>
@@ -49,6 +47,8 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <button mat-raised-button color="primary" (click)="saveNewMember()">Save</button>
+        <p class="error">{{errorText}}</p>
+        <button mat-raised-button color="primary" *ngIf="form.valid" class="ValidatedButton" (click)="saveNewMember()">Save</button>
+        <button mat-raised-button color="primary" *ngIf="!form.valid" >Save</button>
     </div>
 </div>

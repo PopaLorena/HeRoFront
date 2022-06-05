@@ -15,7 +15,9 @@
             <b>End Date:</b><i> {{ event.endDate | date}}</i>
         </p>
          <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(event) && isAdmin()" (click)="edit(event.id)" >Edit</button> 
-        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="delete(event.id)" >Delete</button>
+        <button mat-raised-button color="accent" class="btn-slice" *ngIf="isAdmin()" (click)="delete(event.id)" >
+            <span>Delete</span>
+          </button>
         <button mat-raised-button color="accent" (click)="goToResp(event)" >All resp</button>
     </div>
 </div>
@@ -31,7 +33,7 @@
             <b>End Date:</b><i> {{ event.endDate | date}}</i>
         </p>
         <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="edit(event.id)" >Edit</button>
-        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="delete(event.id)" >Delete</button>
+        <button mat-raised-button color="accent" class="btn-slice" *ngIf="isAdmin()" (click)="delete(event.id)" ><span>Delete</span></button>
         <button mat-raised-button color="accent" (click)="goToResp(event)" >All resp</button>
     </div>
 </div>

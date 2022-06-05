@@ -14,4 +14,9 @@ export class AppComponent {
 
     return false;
   }
+  ngOnDestroy(): void {
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("username");
+    localStorage.removeItem("isLog");
+  }
 }

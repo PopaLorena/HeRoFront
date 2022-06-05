@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { EventsService } from 'src/app/services/events.service';
 import { Events } from 'src/models/events';
 
@@ -14,8 +14,17 @@ export class ViewEventComponent implements OnInit {
   activeEvents!: Events[];
   isActiveList = false;
   role: string = localStorage.getItem("role")!;
-  constructor(private eventService: EventsService, private activatedRoute: ActivatedRoute,
+
+  constructor(private eventService: EventsService,
     private router: Router) {
+  }
+
+  ngOnInit(): void {
+    if (!this.isActiveList)
+      this.getActiveEventsList();
+    else {
+      this.getEventList();
+    }
   }
 
   isAdmin(): boolean{
@@ -27,6 +36,7 @@ export class ViewEventComponent implements OnInit {
   goToResp(event: Events): void{
     this.router.navigate(['Responsibilities/', event.id]);
   }
+
   getEventList(): void {
     this.eventService.getEvents().subscribe((list: Events[]) => {
       this.events = list;
@@ -79,14 +89,6 @@ export class ViewEventComponent implements OnInit {
             return false;
 
     return true;
-  }
-
-  ngOnInit(): void {
-    if (!this.isActiveList)
-      this.getActiveEventsList();
-    else {
-      this.getEventList();
-    }
   }
 
   activeList(): void {

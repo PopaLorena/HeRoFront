@@ -1,7 +1,5 @@
+<h1>Create User</h1>
 <div class="image">
-    <button mat-fab color="primary" (click)="goBackClick()">
-        <mat-icon>arrow_back</mat-icon>
-    </button>
     <div class="form" [formGroup]="form">
         <mat-form-field appearance="outline">
             <mat-label>username</mat-label>
@@ -16,13 +14,14 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-            <mat-select formControlName="role">
-                <mat-option *ngFor="let type of role" [value]="type">
+            <mat-select formControlName="role"  placeholder="role" >
+                <mat-option *ngFor="let type of role" [value]="type" required>
                     {{type}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
-
-        <button mat-raised-button color="primary" (click)="saveNewUser()">Save</button>
+        <p class="error">{{errorText}}</p>
+        <button mat-raised-button color="primary" *ngIf="form.valid" class="ValidatedButton" (click)="saveNewUser()">Save</button>
+        <button mat-raised-button color="primary" *ngIf="!form.valid" >Save</button>
     </div>
 </div>

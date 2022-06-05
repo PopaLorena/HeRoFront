@@ -13,6 +13,7 @@ export class Member {
         public university?: string,
         public userId?: number,
         public user?: User,
-        public statut?: string
+        public statut?: string,
+        public userIsAdmin?: boolean
     ) { }
 }

@@ -18,7 +18,7 @@
         </p>
         <button mat-raised-button color="accent" (click)="openDialog(responsibility)" >see more</button> 
         <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="edit(responsibility.id)"  >Edit</button>
-        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="delete(responsibility.id)">Delete</button>
+        <button mat-raised-button color="accent" class="btn-slice" *ngIf="isAdmin()" (click)="delete(responsibility.id)"><span>Delete</span></button>
     </div>
 </div>
 

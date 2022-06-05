@@ -1,7 +1,16 @@
+.page{
+    display: flex;
+    flex-direction: row;
+
+}
 .date{
-margin-left: 20%;
+margin-left: 50px;
 }
 
 .list{
     margin-left: 5px;
+}
+h1{
+    padding: 0 50px;
+    
 }

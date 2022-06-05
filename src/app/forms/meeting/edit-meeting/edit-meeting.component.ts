@@ -16,24 +16,24 @@ export class EditMeetingComponent implements OnInit {
   form!: FormGroup;
   subscriptionList: Subscription[] = [];
   private meetingToEdit: Meeting | undefined = new Meeting();
-  
+  errorText?: string;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private meetingService: MeetingService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     ) { }
  
-
   ngOnInit(): void {
     this.createForm();
+    this.errorText="";
     this.subscriptionList.push(
       this.activatedRoute.params.subscribe((param) => {
         if (param.meetingId && parseInt(param.meetingId, 10)) {
           this.setEditMeeting(parseInt(param.meetingId, 10));
         }
-      })
-    )
+      }))
   }
 
   ngOnDestroy(): void {
@@ -42,21 +42,14 @@ export class EditMeetingComponent implements OnInit {
     });
   }
 
-  myFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6;
-  }
-
   private updateMeeting(newMeeting: Meeting): void {
     this.meetingService.updateMeeting(newMeeting).subscribe(() => {
       this.router.navigate(['Meetings'])
+    }, (err) => {
+      this.errorText = err.error;
     });
   }
   
-  goBackClick(): void {
-    this.router.navigate(['Meetings']);
-  }
   saveNewMeeting(): void {
     const isValid = this.form.valid;
     const newMeeting: Meeting = {
@@ -67,6 +60,11 @@ export class EditMeetingComponent implements OnInit {
       return;
     }
       this.updateMeeting(newMeeting);
+  }
+
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    return day !== 0 && day !== 6;
   }
 
   private setEditMeeting(id: number): void {

@@ -17,14 +17,7 @@ export class TrainingService {
   getTrainings(): Observable<Training[]> {
     return this.httpClient.get(this.baseUrl + `/get`) as Observable<Training[]>;
   }
-
-  led(test:boolean): Observable<string> {
-   var t = this.httpClient.get(`192.168.1.217:8000/led1/true`) as Observable<string>;
-   console.log(t);
-
-   return t;
-  }
-
+  
   getFutureTrainings(): Observable<Training[]> {
     return this.httpClient.get(this.baseUrl + `/getSort`) as Observable<Training[]>;
   }

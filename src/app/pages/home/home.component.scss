@@ -85,7 +85,8 @@ h2 {
     width: 200px;
     border-radius: 50px 30px;
     cursor: pointer;
-    background-color: rgb(57, 214, 110) !important;
+    background: rgb(99,122,208);
+    background: linear-gradient(45deg, rgba(99,122,208,1) 0%, rgba(52,143,199,1) 50%, rgba(6,161,190,1) 100%);
     background-size: 300%;
     background-position: left;
     transform: perspective(800px) rotateY(15deg) scale(0.9) rotateX(10deg);

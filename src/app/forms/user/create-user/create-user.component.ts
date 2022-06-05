@@ -11,44 +11,32 @@ import { User } from 'src/models/user';
   styleUrls: ['../../form.scss']
 })
 export class CreateUserComponent implements OnInit {
-  role: string[] = ["User"];
+  
+  role: string[] = ["User, Admin"];
   params!: string;
   form!: FormGroup;
-  subscriptionList: Subscription[] = [];
-  public userList!: User[];
-  private userToEdit: User | undefined = new User();
+  errorText?: string;
   
-
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private router: Router
     ) { }
  
-
   ngOnInit(): void {
     this.createForm();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptionList.forEach((sub) => {
-      sub.unsubscribe();
-    });
   }
 
   private addUser(newUser: User): void {
     this.userService.addUser(newUser).subscribe((user: User) => {
       this.router.navigate(['CreateMember/'+ user.id ])
+    }, (err) => {
+      this.errorText = err.error;
     });
   }
-  
-  goBackClick(): void {
-    this.router.navigate(['Members']);
-  }
+
   saveNewUser(): void {
     const isValid = this.form.valid;
     const newUser: User = {
-      ...this.userToEdit,
       ...this.form.getRawValue(),
     };
     if (!isValid) {

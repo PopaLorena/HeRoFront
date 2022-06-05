@@ -1,25 +1,88 @@
+h1 {
+  color: black;
+  margin-top: 10px;
+  margin-left: 40px;
+}
 .image {
-    //   background: url("../../assets/medic1.jpg");
-    margin-left: 10%;
-    .form {
-        width: 90%;
-        display: flex;
-        flex-direction: column;
-        // background: rgb(2,0,36);
-        background-color: #342e37;
-        color: white;
-        padding-top: 10px;
-        margin-bottom: 20px;
-        margin-left: 20px;
-        mat-form-field {
-            width: 90%;
-            margin-left: 30px;
-            border-radius: 50%;
-            border-color: black;
-        }
-        button {
-            width: 40px;
-            margin-left: 30px;
-        }
+  //   background: url("../../assets/medic1.jpg");
+  margin-left: 10%;
+  margin-top: 10px;
+  padding: 50px 0;
+  .form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    // background: rgb(2,0,36);
+    background: rgb(99, 122, 208);
+    background: linear-gradient(45deg, rgba(99, 122, 208, 1) 0%, rgba(52, 143, 199, 1) 50%, rgba(6, 161, 190, 1) 100%);
+    color: white;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    padding-bottom: 10px;
+    border-radius: 5%;
+    mat-form-field {
+      width: 90%;
+      margin-left: 30px;
+      border-radius: 50%;
+      border-color: black;
     }
+    button {
+      width: 40px;
+      margin-left: 30px;
+      background: hsl(168, 59%, 40%);
+      border-radius: 500px;
+    }
+  }
+}
+
+.error {
+  color: red;
+}
+
+.ValidatedButton::before {
+  content: "";
+  border-radius: 500px;
+  min-width: calc(50px + 12px);
+  min-height: calc(20px + 12px);
+  border: 6px solid hsl(168, 100%, 50%);
+  box-shadow: 0 0 60px rgba(0, 255, 203, 0.64);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.ValidatedButton:hover::before,
+button:focus::before {
+  opacity: 1;
+}
+
+.ValidatedButton::after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 6px solid #00ffcb;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: ring 1.5s infinite;
+}
+
+@keyframes ring {
+  0% {
+    width: 10px;
+    height: 10px;
+    opacity: 1;
+  }
+  100% {
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+  }
 }

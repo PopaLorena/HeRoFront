@@ -1,24 +1,19 @@
 <div class="header-container">
     <div class="nav-menu">
-        <a (click)='resetNavbar()' routerLink='Home'>Home</a>
-        <a (click)='resetNavbar()' routerLink='/Events'> Events</a>
-        <a (click)='resetNavbar()' routerLink='/Members'> Members</a>
-        <a (click)='resetNavbar()' href='/Trainings'> Trainings</a>
-        <a (click)='resetNavbar()' routerLink='/Meetings'> Meetings</a>
+        <a  routerLink='Home'>Home</a>
+        <a  routerLink='/Events'> Events</a>
+        <a  routerLink='/Members'> Members</a>
+        <a  routerLink='/Trainings'> Trainings</a>
+        <a  routerLink='/Meetings/'> Meetings</a>
     
     </div>
-    <!-- <button mat-menu-item *ngIf="!userService.loggedIn()" (click)="goToLogin()">
-            Log in
-        </button>
-        <button mat-menu-item *ngIf="userService.loggedIn()"  (click)="userService.removeAuthorization()">log out</button>
-    </mat-menu>
-    <strong *ngIf="userService.loggedIn()">user: {{curentUser}}</strong> -->
-  
+    <img src="../../assets/fun.jpg"   width="110" height="100">
+    <img src="../../assets/impr.png"   width="110" height="100">
     <div class="user">
-        <img src="img_avatar.png" alt="Avatar">
+         <img src="../../assets/avatar.jpg" alt="Avatar" width="50" height="50"> 
     <button mat-button [matMenuTriggerFor]="menu">{{username}}</button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item>view</button>
+        <button mat-menu-item  (click) ="openDialog()">change password</button>
         <button mat-menu-item (click)="logOut()">log out</button>
     </mat-menu>
 </div>

@@ -15,8 +15,8 @@ export class EditTrainingComponent implements OnInit {
   params!: string;
   form!: FormGroup;
   subscriptionList: Subscription[] = [];
+  errorText?: string;
   private trainingToEdit: Training | undefined = new Training();
-
 
   constructor(private formBuilder: FormBuilder,
     private trainingService: TrainingService,
@@ -24,8 +24,8 @@ export class EditTrainingComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
   ) { }
 
-
   ngOnInit(): void {
+    this.errorText="";
     this.createForm();
     this.subscriptionList.push(
       this.activatedRoute.params.subscribe((param) => {
@@ -42,21 +42,14 @@ export class EditTrainingComponent implements OnInit {
     });
   }
 
-  myFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6;
-  }
-
   private updateTraining(newTraining: Training): void {
     this.trainingService.updateTraining(newTraining).subscribe(() => {
       this.router.navigate(['Trainings'])
+    }, (err) => {
+      this.errorText = err.error;
     });
   }
 
-  goBackClick(): void {
-    this.router.navigate(['Trainings']);
-  }
   saveNewTraining(): void {
     const isValid = this.form.valid;
     const newTraining: Training = {
@@ -77,6 +70,11 @@ export class EditTrainingComponent implements OnInit {
         emitEvent: false
       });
     });
+  }
+
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    return day !== 0 && day !== 6;
   }
 
   private createForm(): void {

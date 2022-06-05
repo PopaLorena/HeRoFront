@@ -12,8 +12,9 @@ import { Member } from 'src/models/member';
 })
 export class EditMemberComponent implements OnInit {
 
-  statut: string[] = ["Baby","Active","Alumnus"];
+  statut: string[] = ["Active","Alumnus"];
   params!: string;
+  errorText?: string;
   form!: FormGroup;
   subscriptionList: Subscription[] = [];
   public memberList: Member[] = this.memberService.memberList;
@@ -28,6 +29,7 @@ export class EditMemberComponent implements OnInit {
  
 
   ngOnInit(): void {
+    this.errorText="";
     this.createForm();
     this.subscriptionList.push(
       this.activatedRoute.params.subscribe((param) => {
@@ -38,21 +40,22 @@ export class EditMemberComponent implements OnInit {
     )
   }
 
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    return day !== 0 && day !== 6;
+  }
+
   ngOnDestroy(): void {
     this.subscriptionList.forEach((sub) => {
       sub.unsubscribe();
     });
   }
 
-  myFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6;
-  }
-
   private updateMember(newMember: Member): void {
     this.memberService.updateMember(newMember).subscribe(() => {
       this.router.navigate(['Members'])
+    }, (err) => {
+      this.errorText = err.error;
     });
   }
   
@@ -90,7 +93,7 @@ export class EditMemberComponent implements OnInit {
       photoUrl: [null],
       university: [null],
       telNumber: [null],
-      statut:[null],
+      statut: ["Activ"],
     });
   }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 import { MeetingService } from 'src/app/services/meeting.service';
 import { Meeting } from 'src/models/meeting';
 
@@ -15,25 +14,16 @@ export class CreateMeetingComponent implements OnInit {
   params!: string;
   form!: FormGroup;
   userId! : number ;
-  subscriptionList: Subscription[] = [];
-  private meetingToEdit: Meeting | undefined = new Meeting();
-  
+  errorText?: string;
 
   constructor(private formBuilder: FormBuilder,
     private meetingService: MeetingService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     ) { }
  
-
   ngOnInit(): void {
     this.createForm();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptionList.forEach((sub) => {
-      sub.unsubscribe();
-    });
+    this.errorText="";
   }
 
   myFilter = (d: Date | null): boolean => {
@@ -44,6 +34,8 @@ export class CreateMeetingComponent implements OnInit {
   private addMeeting(newMeeting: Meeting): void {
     this.meetingService.addMeeting(newMeeting).subscribe(() => {
       this.router.navigate(['Meetings'])
+    }, (err) => {
+      this.errorText = err.error;
     });
   }
  
@@ -54,7 +46,6 @@ export class CreateMeetingComponent implements OnInit {
   saveNewMeeting(): void {
     const isValid = this.form.valid;
     const newMeeting: Meeting = {
-      ...this.meetingToEdit,
       ...this.form.getRawValue(),
     };
     if (!isValid) {

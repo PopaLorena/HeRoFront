@@ -14,36 +14,24 @@ export class CreateTrainingComponent implements OnInit {
 
   params!: string;
   form!: FormGroup;
-  userId! : number ;
-  subscriptionList: Subscription[] = [];
-  private TrainingToEdit: Training | undefined = new Training();
+  errorText?: string;
+  userId! : number;
   
-
   constructor(private formBuilder: FormBuilder,
     private TrainingService: TrainingService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private router: Router
     ) { }
  
-
   ngOnInit(): void {
     this.createForm();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptionList.forEach((sub) => {
-      sub.unsubscribe();
-    });
-  }
-
-  myFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    return day !== 0 && day !== 6;
+    this.errorText="";
   }
 
   private addTraining(newTraining: Training): void {
     this.TrainingService.addTraining(newTraining).subscribe(() => {
       this.router.navigate(['Trainings'])
+    }, (err) => {
+      this.errorText = err.error;
     });
   }
  
@@ -54,7 +42,6 @@ export class CreateTrainingComponent implements OnInit {
   saveNewTraining(): void {
     const isValid = this.form.valid;
     const newTraining: Training = {
-      ...this.TrainingToEdit,
       ...this.form.getRawValue(),
     };
     if (!isValid) {
@@ -63,6 +50,11 @@ export class CreateTrainingComponent implements OnInit {
      this.addTraining(newTraining);
   }
 
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    return day !== 0 && day !== 6;
+  }
+  
   private createForm(): void {
     this.form = this.formBuilder.group({
       name: [null],

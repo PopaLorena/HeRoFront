@@ -16,6 +16,7 @@ export class EditResponsibilityComponent implements OnInit {
 
   members: Member[] = [];
   params!: string;
+  errorText?: string;
   form!: FormGroup;
   eventId!: number;
   respId!: number;
@@ -34,6 +35,7 @@ export class EditResponsibilityComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.errorText="";
     this.createForm();
     this.subscriptionList.push(
       this.activatedRoute.params.subscribe((param) => {
@@ -63,10 +65,12 @@ export class EditResponsibilityComponent implements OnInit {
     const day = (d || new Date()).getDay();
     return day !== 0 && day !== 6;
   }
-
+  
   private updateResponsibility(newResponsibility: Responsibility): void {
     this.responsibilityService.updateResponsibility(newResponsibility).subscribe(() => {
       this.router.navigate(['Responsibilities/' + this.eventId])
+    }, (err) => {
+      this.errorText = err.error;
     });
   }
 

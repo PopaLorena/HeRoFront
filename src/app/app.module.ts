@@ -18,7 +18,6 @@ import { HttpClientModule} from '@angular/common/http';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SideInfoComponent } from './side-info/side-info.component';
 import { ViewTrainingsComponent } from './pages/view-trainings/view-trainings.component';
 import {  ViewMeetingsComponent } from './pages/view-meetings/view-meetings.component';
 import { ViewMembersComponent } from './pages/view-members/view-members.component';
@@ -48,6 +47,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ViewMeetingParticipantsComponent } from './pages/view-meetings/view-meeting-participants/view-meeting-participants.component';
 import { ViewTrainingParticipantsComponent } from './pages/view-trainings/view-training-participants/view-training-participants.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ChangePasswordFormComponent } from './header/change-password-form/change-password-form.component';
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+import { AuthGuardService } from './services/auth-guard.service';
+import { RoleGuardService } from './services/role-guard.service';
+
 @NgModule({
   declarations: [
     ViewTrainingsComponent,
@@ -56,7 +60,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     HomeComponent,
     ViewEventComponent,
     HeaderComponent,
-    SideInfoComponent,
     ViewTrainingsComponent,
     ViewMeetingsComponent,
     ViewMembersComponent,
@@ -75,7 +78,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     EditResponsibilityComponent,
     ViewMemberComponent,
     ViewMeetingParticipantsComponent,
-    ViewTrainingParticipantsComponent
+    ViewTrainingParticipantsComponent,
+    ChangePasswordFormComponent
   ],
   imports: [
     MatFormFieldModule,
@@ -97,7 +101,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     AppRoutingModule,
     BrowserAnimationsModule
   ],
-  providers: [TrainingService,ResponsibilityService,MemberService,MemberTrainingService,MemberMeetingService,MeetingService,EventsService,UserService],
+  providers: [RoleGuardService,TrainingService,ResponsibilityService,MemberService,MemberTrainingService,MemberMeetingService,MeetingService,EventsService,UserService, AuthGuardService,{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
