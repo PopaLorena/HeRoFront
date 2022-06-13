@@ -19,26 +19,35 @@
      </div>
      <div class="date">
           <p><b> Trainings: </b></p>
-          <div class="list" *ngFor="let training of trainings">
+          <div class="list" *ngFor="let training of trainings" >
                <p>
-                    <i>-{{ training.name }} at {{training.date | date}}</i>
+                    <i>{{ training.name }} ( {{training.date | date}} )</i>
                </p>
+          </div>
+          <div class="notFound" *ngIf="!hasTrainings">
+               <img src="../../../assets/404-error-dribbble-800x600.gif"   width="120" height="120">
           </div>
      </div>
      <div class="date">
           <p><b> Meetings: </b></p>
           <div class="list" *ngFor="let meeting of meetings">
                <p>
-                    <i>-{{ meeting.name }} at {{meeting.date | date}}</i>
+                    <i>{{ meeting.name }} ( {{meeting.date | date}} )</i>
                </p>
+          </div>
+          <div class="notFound" *ngIf="!hasMeeting">
+               <img src="../../../assets/404-error-dribbble-800x600.gif"    width="120" height="120">
           </div>
      </div>
      <div class="date">
           <p><b>Responsibilities: </b></p>
           <div class="list" *ngFor="let responsibility of responsibilities">
                <p>
-                    <i>-{{ responsibility.name }} at {{responsibility.event!.name}}</i>
+                    <i>{{ responsibility.name }} at {{responsibility.event!.name}}</i>
                </p>
+          </div>
+          <div class="notFound" *ngIf="!hasResponsibilities">
+               <img src="../../../assets/404-error-dribbble-800x600.gif"    width="120" height="120">
           </div>
      </div>
 </div>

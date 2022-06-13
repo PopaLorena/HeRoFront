@@ -23,6 +23,9 @@ export class ViewMemberComponent implements OnInit {
   trainings: Training[] = [];
   memberId!: number;
   member!: Member
+  hasMeeting: boolean = false;
+  hasResponsibilities: boolean = false;
+  hasTrainings: boolean = false;
   constructor(private respService: ResponsibilityService,private trainingService: TrainingService, private meetingService: MeetingService, private memberService: MemberService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -50,6 +53,7 @@ export class ViewMemberComponent implements OnInit {
   getMeetings(memberId: number){
     this.meetingService.getMeetingByMemberId(memberId).subscribe((list: Meeting[]) => {
       this.meetings = list;
+      this.hasMeeting = this.meetings.length !=0;
     }, (err) => {
       if (err.status === 401)
         return;
@@ -60,6 +64,7 @@ export class ViewMemberComponent implements OnInit {
   getTrainings(memberId: number){
     this.trainingService.getTrainingsByMemberId(memberId).subscribe((list: Training[]) => {
       this.trainings = list;
+      this.hasTrainings = this.trainings.length !=0;
     }, (err) => {
       if (err.status === 401)
         return;
@@ -70,6 +75,7 @@ export class ViewMemberComponent implements OnInit {
   getResponsibilities(memberId: number){
     this.respService.getResponsibilitiesByMemberId(memberId).subscribe((list: Responsibility[]) => {
       this.responsibilities = list;
+      this.hasResponsibilities = this.responsibilities.length !=0;
     }, (err) => {
       if (err.status === 401)
         return;

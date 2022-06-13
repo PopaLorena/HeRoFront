@@ -77,7 +77,6 @@ export class CreateMemberComponent implements OnInit {
       name: [null,[Validators.required, Validators.minLength(2)]],
       email: [null],
       birthDate: [null],
-      photoUrl: [null],
       university: [null],
       telNumber: [null],
       statut:["Baby"],

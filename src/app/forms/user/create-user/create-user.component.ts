@@ -12,7 +12,7 @@ import { User } from 'src/models/user';
 })
 export class CreateUserComponent implements OnInit {
   
-  role: string[] = ["User, Admin"];
+  role: string[] = ["User","Admin"];
   params!: string;
   form!: FormGroup;
   errorText?: string;

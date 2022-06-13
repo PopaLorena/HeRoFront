@@ -3,7 +3,7 @@
         <div class="leftHalf">
                 <h2 class="secondTitle">Future trainings</h2>
                 <div class="info">
-                <div *ngFor="let training of trainings" (click)="goToTraining(training.id!)" class="lastItems">
+                <div *ngFor="let training of trainings" (click)="goToTraining(training.id!)"  class="lastItems">
                     <p>
                         <b>Name:</b> <i>  {{ training.name }}</i>
                     </p>
