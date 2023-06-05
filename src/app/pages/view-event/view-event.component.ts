@@ -27,13 +27,13 @@ export class ViewEventComponent implements OnInit {
     }
   }
 
-  isAdmin(): boolean{
-    if(this.role == "Admin")
+  isAdmin(): boolean {
+    if (this.role == "Admin")
       return true;
     else return false;
   }
 
-  goToResp(event: Events): void{
+  goToResp(event: Events): void {
     this.router.navigate(['Responsibilities/', event.id]);
   }
 
@@ -42,26 +42,26 @@ export class ViewEventComponent implements OnInit {
       this.events = list;
     }, (err) => {
       if (err.status === 401)
-       return;
+        return;
     });
   }
 
-  add(): void{
-    this.router.navigate(['CreateEvent' ])
-  }
-  
-  edit(id : number | undefined): void{
-    this.router.navigate(['EditEvent/'+id ])
+  add(): void {
+    this.router.navigate(['CreateEvent'])
   }
 
-  delete(id : number | undefined): void{
+  edit(id: number | undefined): void {
+    this.router.navigate(['EditEvent/' + id])
+  }
+
+  delete(id: number | undefined): void {
     this.eventService.deleteEvent(id!).subscribe(
       () => {
         window.location.reload();
-      }, (err)=>{
+      }, (err) => {
       }
     );
-   }
+  }
 
   getActiveEventsList(): void {
     this.getEventList();

@@ -1,29 +1,29 @@
 <div class="buttons">
-    <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="add()" >Add meeting</button>
-    <button mat-raised-button color="accent" *ngIf="!isActiveList" (click)="activeList()" >See future meetings</button>
-    <button mat-raised-button color="accent" *ngIf="isActiveList" (click)="activeList()" >See all meetings</button>
+    <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="add()">Add meeting</button>
+    <button mat-raised-button color="accent" *ngIf="!isActiveList" (click)="activeList()">See future meetings</button>
+    <button mat-raised-button color="accent" *ngIf="isActiveList" (click)="activeList()">See all meetings</button>
 </div>
-<div  *ngIf="!isActiveList"  class="items">
-    <div *ngFor="let meeting of meetings" [className]="isGreaterThanNow(meeting)? 'activeMeetings':'meetings'" >
-       <div [className]="choseMeeting == meeting.id? 'getMeeting':''" >
-        <p>
-            <b>Name:</b> <i> {{ meeting.name }}</i>
-        </p>
-        <p>
-            <b>Date:</b> <i> {{ meeting.date | date}}</i>
-        </p>
-        <p>
-            <b>Facilitator</b><i> {{ meeting.facilitatorName }}</i>
-        </p>
-        
-        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(meeting) && isAdmin()" (click)="edit(meeting.id)" >Edit</button>
-        <button mat-raised-button color="accent"  class="btn-slice" *ngIf="isAdmin()" (click)="delete(meeting.id)" ><span>Delete</span></button>
-        <button mat-raised-button color="accent" (click)="openDialog(meeting)">All Pax</button>
-        <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(meeting) && !meeting.hadApply"  (click)="apply(meeting.id)">Apply</button>
+<div *ngIf="!isActiveList" class="items">
+    <div *ngFor="let meeting of meetings" [className]="isGreaterThanNow(meeting)? 'activeMeetings':'meetings'">
+        <div [className]="choseMeeting == meeting.id? 'getMeeting':''">
+            <p>
+                <b>Name:</b> <i> {{ meeting.name }}</i>
+            </p>
+            <p>
+                <b>Date:</b> <i> {{ meeting.date | date}}</i>
+            </p>
+            <p>
+                <b>Facilitator</b><i> {{ meeting.facilitatorName }}</i>
+            </p>
+
+            <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(meeting) && isAdmin()" (click)="edit(meeting.id)">Edit</button>
+            <button mat-raised-button color="accent" class="btn-slice" *ngIf="isAdmin()" (click)="delete(meeting.id)"><span>Delete</span></button>
+            <button mat-raised-button color="accent" (click)="openDialog(meeting)">All Pax</button>
+            <button mat-raised-button color="accent" *ngIf="isGreaterThanNow(meeting) && !meeting.hadApply" (click)="apply(meeting.id)">Apply</button>
+        </div>
     </div>
-</div> 
 </div>
-<div  *ngIf="isActiveList"  class="items">
+<div *ngIf="isActiveList" class="items">
     <div *ngFor="let meeting of activeMeetings" class="activeMeetings">
         <p>
             <b>Name:</b> <i> {{ meeting.name }}</i>
@@ -34,9 +34,9 @@
         <p>
             <b>Facilitator</b><i> {{ meeting.facilitatorName }}</i>
         </p>
-        <button mat-raised-button color="accent" *ngIf="isAdmin()"  (click)="edit(meeting.id)" >Edit</button>
-        <button mat-raised-button color="accent"  class="btn-slice" *ngIf="isAdmin()" (click)="delete(meeting.id)" ><span>Delete</span></button>
+        <button mat-raised-button color="accent" *ngIf="isAdmin()" (click)="edit(meeting.id)">Edit</button>
+        <button mat-raised-button color="accent" class="btn-slice" *ngIf="isAdmin()" (click)="delete(meeting.id)"><span>Delete</span></button>
         <button mat-raised-button color="accent" (click)="openDialog(meeting)">All Pax</button>
-        <button mat-raised-button color="accent"  *ngIf="!meeting.hadApply"  (click)="apply(meeting.id)">Apply</button>
+        <button mat-raised-button color="accent" *ngIf="!meeting.hadApply" (click)="apply(meeting.id)">Apply</button>
     </div>
 </div>

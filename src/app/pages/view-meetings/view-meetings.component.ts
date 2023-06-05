@@ -23,7 +23,7 @@ export class ViewMeetingsComponent implements OnInit {
   exist: boolean = false;
   memberMeeting: MemberMeeting = new MemberMeeting();
   memberId = localStorage.getItem('userId');
-  participants: any| Member[] = [];
+  participants: any | Member[] = [];
   role: string = localStorage.getItem("role")!;
   subscriptionList: Subscription[] = [];
   choseMeeting!: number;
@@ -44,8 +44,8 @@ export class ViewMeetingsComponent implements OnInit {
       })
     )
   }
-  isAdmin(): boolean{
-    if(this.role == "Admin")
+  isAdmin(): boolean {
+    if (this.role == "Admin")
       return true;
     else return false;
   }
@@ -54,12 +54,12 @@ export class ViewMeetingsComponent implements OnInit {
     this.meetingService.getMeetings().subscribe((list: Meeting[]) => {
       this.meetings = list;
       this.meetings?.forEach(async x => {
-          if(await this.isOnTheList(x.id)){
-            x.hadApply = true;
-          }
-          else {
-            x.hadApply = false;
-          }
+        if (await this.isOnTheList(x.id)) {
+          x.hadApply = true;
+        }
+        else {
+          x.hadApply = false;
+        }
       })
     }, (err) => {
       if (err.status === 401)
@@ -75,7 +75,7 @@ export class ViewMeetingsComponent implements OnInit {
       data: { name: meeting.name, participants: this.participants },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
     });
   };
@@ -86,7 +86,7 @@ export class ViewMeetingsComponent implements OnInit {
     this.meetings?.forEach(async x => {
       if (this.isGreaterThanNow(x)) {
         this.activeMeetings.push(x);
-        if(await this.isOnTheList(x.id)){
+        if (await this.isOnTheList(x.id)) {
           x.hadApply = true;
         }
         else {
@@ -118,12 +118,12 @@ export class ViewMeetingsComponent implements OnInit {
     this.memberMeetingService.addMemberMeetings(parseInt(this.memberId!), id!).subscribe((m: MemberMeeting) => {
       window.location.reload();
     },
-    (err) => {
-      console.log(err);
-    });
+      (err) => {
+        console.log(err);
+      });
   }
 
-  async isOnTheList(id: number | undefined){
+  async isOnTheList(id: number | undefined) {
     return await this.memberMeetingService.CheckIfExist(parseInt(this.memberId!), id!);
   }
 
